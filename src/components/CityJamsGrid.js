@@ -1,5 +1,5 @@
 import React from 'react';
-import {useSelector, useDispatch}  from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
@@ -37,28 +37,29 @@ export default function CityJamsGrid() {
   const currentCity = cities[current]
   return (
     console.log(currentCity.name),
-    <div className={classes.root}>
-      <GridList className={classes.gridList} cols={2.5}>
 
-        {/* {currentCity.Jams.map((jam) => (
+      <div className={classes.root}>
+        <GridList className={classes.gridList} cols={2.5}>
+
+          {/* {currentCity.Jams.map((jam) => (
           console.log(jam)
           <GridListTile key={tile.img}>
-            <img src={tile.img} alt={tile.title} />
-            <GridListTileBar
-              title={tile.title}
-              classes={{
-                root: classes.titleBar,
-                title: classes.title,
-              }}
-              actionIcon={
-                <IconButton aria-label={`star ${tile.title}`}>
-                  <StarBorderIcon className={classes.title} />
-                </IconButton>
-              }
-            />
+          <img src={tile.img} alt={tile.title} />
+          <GridListTileBar
+          title={tile.title}
+          classes={{
+            root: classes.titleBar,
+            title: classes.title,
+          }}
+          actionIcon={
+            <IconButton aria-label={`star ${tile.title}`}>
+            <StarBorderIcon className={classes.title} />
+            </IconButton>
+          }
+          />
           </GridListTile>
         ))} */}
-      </GridList>
-    </div>
+        </GridList>
+      </div>
   );
 }
