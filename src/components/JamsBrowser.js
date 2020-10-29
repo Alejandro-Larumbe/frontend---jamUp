@@ -2,8 +2,14 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import City from './City';
 import Jams from './Jams';
-import JamPreview from './JamPreview';
+import CityJamsPreview from './CityJamsGrid';
 import { setCurrentCity , getCities} from '../store/jams'
+import CityJamsGrid from './CityJamsGrid'
+import CitiesGrid from './CitiesGrid'
+
+import 'fontsource-roboto';
+
+
 
 
 const JamsBrowser = () => {
@@ -28,17 +34,8 @@ const JamsBrowser = () => {
   }
   return (
     <>
-    {cities.map(city => {
-      console.log(city.name)
-      return  (
-        <button id={city.id} key={city.name} onClick={handleClick} backgroundimage={city.photuUrl}>
-          <City name={city.name}></City >
-        </button>
-      )
-    })}
-    {/* {cities["id"][current].map(jam => {
-      return <JamPreview time={jam.time} date={jam.date} address={jam.address}/>
-    })} */}
+    <CitiesGrid/>
+    {/* <CityJamsGrid  /> */}
     </>
   )
 }

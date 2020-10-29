@@ -8,6 +8,8 @@ import Login from './Login';
 import JamsBrowser from './JamsBrowser';
 import SignUp from './SignUp';
 import Landing from './Landing';
+import SigninSide from './SigninSide'
+import NavBar from './NavBar'
 
 
 
@@ -30,15 +32,17 @@ function App() {
 
   return (
     <BrowserRouter>
+        <Route exact path='/landing' component={Landing} />
       <Switch>
         <Route path='/login' component={Login} />
         <Route path='/signup' component={SignUp} />
-        <Route exact path='/' component={Landing} />
+        <Route path='/signin' component={SigninSide} />
         <Route path='/jamsBrowser'
           exact={true}
           component={JamsBrowser}
         />
       </Switch>
+        {/* <Route path='/' component={NavBar} /> */}
     </BrowserRouter>
   );
 }

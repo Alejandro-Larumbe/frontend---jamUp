@@ -1,2 +1,2 @@
-export const imageUrl = process.env.REACT_APP_IMAGE_URL || 'http://localhost:8000';
-export const baseUrl = process.env.REACT_APP_BASEURL || `${imageUrl}/api`;
+export const imageUrl = process.env.PUBLIC_URL + '/images';
+export const baseUrl = process.env.REACT_APP_BASEURL || 'http://localhost:8000/api';
