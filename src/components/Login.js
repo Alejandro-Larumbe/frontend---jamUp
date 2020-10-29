@@ -5,8 +5,8 @@ import { Redirect } from 'react-router-dom';
 
 const Login = props => {
   const token = useSelector(state => state.authentication.token);
-  const [email, setEmail] = useState('demo@userEvent.com');
-  const [password, setPassword] = useState('password');
+  const [email, setEmail] = useState('larus@larus.com');
+  const [password, setPassword] = useState('something');
   const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {

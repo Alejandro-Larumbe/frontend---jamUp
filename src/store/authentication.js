@@ -8,7 +8,7 @@ const REMOVE_TOKEN = 'REMOVE_TOKEN';
 
 export const removeToken = token => ({ type: REMOVE_TOKEN });
 export const setToken = token => ({ type: SET_TOKEN, token });
-export const setUserId = id => ({ type: SET_USER_ID })
+export const setUserId = id => ({ type: SET_USER_ID, id })
 
 export const loadToken = () => async dispatch => {
   const token = window.localStorage.getItem(TOKEN_KEY);
@@ -18,8 +18,6 @@ export const loadToken = () => async dispatch => {
 };
 
 export const login = (email, password) => async dispatch => {
-  console.log('hello')
-
   const response = await fetch(`${baseUrl}/users/token`, {
     method: 'post',
     headers: { 'Content-Type': 'application/json' },
@@ -30,6 +28,7 @@ export const login = (email, password) => async dispatch => {
     console.log(response)
     const { token, id } = await response.json();
     console.log( { token, id })
+    console.log("id", id)
     window.localStorage.setItem(TOKEN_KEY, token);
     window.localStorage.setItem(USER_ID_KEY, id);
     dispatch(setToken(token));
@@ -64,7 +63,7 @@ function authentication(state = {}, action) {
       return {
         ...state,
         id: action.id
-      }
+      };
     }
 
     case REMOVE_TOKEN: {
