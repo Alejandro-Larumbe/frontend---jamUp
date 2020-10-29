@@ -6,7 +6,7 @@ import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import IconButton from '@material-ui/core/IconButton';
-import { setCurrentCity, getCities } from '../store/jams'
+import { setCurrentCity } from '../store/jams'
 import { NavLink } from 'react-router-dom'
 
 import InfoIcon from '@material-ui/icons/Info';

@@ -2,16 +2,24 @@ import { baseUrl } from '../config';
 
 
 const LOAD = 'LOAD';
-const SET_CURRENT_CITY = 'SET_CURRENT_CITY';
+const LOAD_CURRENT_CITY_JAMS = 'LOAD_CURRENT_CITY_JAMS';
 
 export const load = cities => ({ type: LOAD, cities });
-export const setCurrentCity = id => ({ type: SET_CURRENT_CITY, id })
+export const loadCurrentCityJams = jams => ({ type: LOAD_CURRENT_CITY_JAMS, jams })
 
 export const getCities = () => async (dispatch) => {
   const response = await fetch(`${baseUrl}/jams/cities`)
   if (response.ok) {
     const cities = await response.json();
     dispatch(load(cities))
+  }
+}
+
+export const setCurrentCity = (id) => async (dispatch) => {
+  const response = await fetch(`${baseUrl}/jams/cities/${id}`)
+  if (response.ok) {
+    const jams = await response.json();
+    dispatch(loadCurrentCityJams(jams))
   }
 }
 
@@ -27,10 +35,10 @@ export default function reducer(state = {}, action) {
 
       }
     }
-    case SET_CURRENT_CITY: {
+    case LOAD_CURRENT_CITY_JAMS: {
       return {
         ...state,
-        currentCity: action.id
+        jams: action.jams
       }
     }
     default: return state;

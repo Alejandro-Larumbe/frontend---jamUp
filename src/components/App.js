@@ -33,14 +33,13 @@ function App() {
   return (
     <BrowserRouter>
         <Route exact path='/landing' component={Landing} />
+        <Route path='/jamsBrowser'
+          component={JamsBrowser}
+        />
       <Switch>
         <Route path='/login' component={Login} />
         <Route path='/signup' component={SignUp} />
         <Route path='/signin' component={SigninSide} />
-        <Route path='/jamsBrowser'
-          exact={true}
-          component={JamsBrowser}
-        />
       </Switch>
         {/* <Route path='/' component={NavBar} /> */}
     </BrowserRouter>

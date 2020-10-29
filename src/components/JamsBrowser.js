@@ -3,9 +3,10 @@ import { useSelector, useDispatch } from "react-redux";
 import City from './City';
 import Jams from './Jams';
 import CityJamsPreview from './CityJamsGrid';
-import { setCurrentCity , getCities} from '../store/jams'
+import { setCurrentCity, getCities } from '../store/jams'
 import CityJamsGrid from './CityJamsGrid'
 import CitiesGrid from './CitiesGrid'
+import { Route } from 'react-router-dom'
 
 import 'fontsource-roboto';
 
@@ -21,21 +22,25 @@ const JamsBrowser = () => {
 
   useEffect(() => {
     dispatch(getCities());
-  },[current]);
+  }, [current]);
 
 
-  const handleClick = e => {
-    console.log(e.target.id)
-    dispatch(setCurrentCity(e.target.id))
-  }
+  // const handleClick = e => {
+  //   console.log(e.target.id)
+  //   dispatch(setCurrentCity(e.target.id))
+  // }
 
   if (!cities) {
     return null;
   }
   return (
     <>
-    <CitiesGrid/>
-    {/* <CityJamsGrid  /> */}
+      <CitiesGrid />
+      {/* <CityJamsGrid  /> */}
+      <Route
+        path={`/jamsBrowser/${current}`}
+        render={(props) => <CityJamsGrid {...props} token={token} />}
+      />
     </>
   )
 }
