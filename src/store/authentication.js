@@ -5,6 +5,8 @@ const SET_TOKEN = 'SET_TOKEN';
 const USER_ID_KEY = 'USER_ID_KEY';
 const SET_USER_ID = 'SET_USER_ID'
 const REMOVE_TOKEN = 'REMOVE_TOKEN';
+const CREATE_USER = 'CREATE_USER';
+
 
 export const removeToken = token => ({ type: REMOVE_TOKEN });
 export const setToken = token => ({ type: SET_TOKEN, token });
@@ -25,7 +27,6 @@ export const login = (email, password) => async dispatch => {
   });
 
   if (response.ok) {
-    console.log(response)
     const { token, id } = await response.json();
     console.log( { token, id })
     console.log("id", id)
@@ -35,6 +36,24 @@ export const login = (email, password) => async dispatch => {
     dispatch(setUserId(id));
   }
 };
+
+export const signup = payload => async dispatch => {
+  const response = await fetch(`${baseUrl}/users`, {
+    method: 'post',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify( payload ),
+  })
+
+  if (response.ok) {
+    const { token, id } = await response.json();
+    console.log("user created")
+    console.log( { token, id });
+    window.localStorage.setItem(TOKEN_KEY, token);
+    window.localStorage.setItem(USER_ID_KEY, id);
+    dispatch(setToken(token));
+    dispatch(setUserId(id));
+  }
+}
 
 export const logout = () => async (dispatch, getState) => {
   const { authentication: { token } } = getState();

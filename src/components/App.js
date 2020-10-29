@@ -2,21 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 
+import { loadToken } from '../store/authentication';
 
 import Login from './Login';
 import JamsBrowser from './JamsBrowser';
 import SignUp from './SignUp';
-import { loadToken } from '../store/authentication';
+import Landing from './Landing';
 
 
 
-const PrivateRoute = ({ component: Component, ...rest }) => (
-  <Route {...rest} render={(props) => (
-    rest.needLogin === true
-      ? <Redirect to='/login' />
-      : <Component {...props} />
-  )} />
-)
 
 function App() {
   const token = useSelector(state => state.token);
@@ -39,10 +33,9 @@ function App() {
       <Switch>
         <Route path='/login' component={Login} />
         <Route path='/signup' component={SignUp} />
-        <PrivateRoute
-          path='/jamsBrowser'
+        <Route exact path='/' component={Landing} />
+        <Route path='/jamsBrowser'
           exact={true}
-          needLogin={needLogin}
           component={JamsBrowser}
         />
       </Switch>
