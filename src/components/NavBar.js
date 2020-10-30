@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import { Link } from 'react-router-dom';
+import { removeToken } from '../store/authentication'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,7 +25,11 @@ const useStyles = makeStyles((theme) => ({
 export default function NavBar() {
   const classes = useStyles();
   const token = useSelector((state) => state.authentication.token);
+  const dispatch = useDispatch();
 
+  const clickHandler = (e) => {
+    dispatch(removeToken(token))
+  }
 
   return (
     <div className={classes.root}>
@@ -39,7 +44,7 @@ export default function NavBar() {
           </Link>
           <Button color="inherit">Dashboard</Button>
           {token?
-          <Button color="inherit">Logout</Button>
+          <Button color="inherit" onClick={clickHandler}>Logout</Button>
           :<Link to='/login'><Button color="inherit">Login</Button></Link>}
         </Toolbar>
       </AppBar>

@@ -51,19 +51,7 @@ export const signup = payload => async dispatch => {
   }
 }
 
-export const logout = () => async (dispatch, getState) => {
-  const { authentication: { token } } = getState();
-  ///???
-  const response = await fetch(`${baseUrl}/session`, {
-    method: 'delete',
-    headers: { Authorization: `Bearer ${token}` },
-  });
 
-  if (response.ok) {
-    window.localStorage.removeItem(TOKEN_KEY);
-    dispatch(removeToken());
-  }
-}
 
 function authentication(state = {}, action) {
   switch (action.type) {

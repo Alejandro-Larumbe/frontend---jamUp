@@ -1,1 +1,13 @@
 /* TODO Add site wide styles */
+
+#landing-image {
+  background-size: cover;
+  width: 100%;
+}
+#browser-image {
+  background-size: cover;
+  /* height: auto; */
+
+  /* margin:auto; */
+  /* height: auto; */
+}

@@ -34,14 +34,13 @@ export default function CityJamsGrid() {
   const classes = useStyles();
   const jams = useSelector(state => state.jams.jams)
 
-  if (!jams) return null
+  if(!jams) return null
 
   return (
     // console.log(jams),
     <div className={classes.root}>
       <GridList className={classes.gridList} cols={2.5}>
-
-        {jams.map((jam) => {
+      {jams.map((jam) => {
           console.log(jam)
           return <CityJamsCard {...jam}/>
         })}

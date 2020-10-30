@@ -8,6 +8,8 @@ import CityJamsGrid from './CityJamsGrid'
 import CitiesGrid from './CitiesGrid'
 import { Route } from 'react-router-dom'
 import Navbar from './NavBar'
+import { imageUrl } from '../config'
+import JamCard from './JamCard';
 
 import 'fontsource-roboto';
 
@@ -22,7 +24,7 @@ const JamsBrowser = () => {
 
   useEffect(() => {
     dispatch(getCities());
-  }, [current]);
+  }, []);
 
   if (!cities) {
     return null;
@@ -30,10 +32,16 @@ const JamsBrowser = () => {
   return (
     <>
       <Navbar></Navbar>
+      <div id="browser-image"width='50%' style={{  backgroundImage: `url(${imageUrl}/browser.jpeg`, height: '35vh'}} />
+      <div style={{ height:"150px" }} />
       <CitiesGrid />
       <Route path={`/jamsBrowser/${current}`}>
       </Route>
-        <CityJamsGrid />
+      <div style={{ height:"100px" }} />
+      <CityJamsGrid />
+      <div style={{ height:"150px" }} />
+      <JamCard />
+
     </>
   )
 }

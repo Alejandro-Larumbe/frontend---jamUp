@@ -32,9 +32,7 @@ function App() {
 
   return (
     <BrowserRouter>
-        <Route path='/jamsBrowser'
-          component={JamsBrowser}
-        />
+        <Route path='/jamsBrowser'component={JamsBrowser} />
       <Switch>
         <Route path='/signin' component={SigninSide} />
         <Route path='/login' component={Login} />

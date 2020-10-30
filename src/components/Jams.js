@@ -1,5 +1,5 @@
 import React from 'react'
-import Jam from './Jam'
+import Jam from './JamCard'
 
 const Jams = () => {
   return (
