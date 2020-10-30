@@ -28,8 +28,6 @@ export const login = (email, password) => async dispatch => {
 
   if (response.ok) {
     const { token, id } = await response.json();
-    console.log( { token, id })
-    console.log("id", id)
     window.localStorage.setItem(TOKEN_KEY, token);
     window.localStorage.setItem(USER_ID_KEY, id);
     dispatch(setToken(token));
@@ -46,8 +44,6 @@ export const signup = payload => async dispatch => {
 
   if (response.ok) {
     const { token, id } = await response.json();
-    console.log("user created")
-    console.log( { token, id });
     window.localStorage.setItem(TOKEN_KEY, token);
     window.localStorage.setItem(USER_ID_KEY, id);
     dispatch(setToken(token));

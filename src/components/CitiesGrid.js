@@ -52,7 +52,6 @@ export default function CitiesGrid() {
 
 
   const handleClick = e => {
-    console.log(e.target.id)
     dispatch(setCurrentCity(e.target.id))
   }
   const classes = useStyles();

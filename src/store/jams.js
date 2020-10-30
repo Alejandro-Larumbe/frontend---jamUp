@@ -31,8 +31,7 @@ export default function reducer(state = {}, action) {
     case LOAD: {
       return {
         ...state,
-        cities: action.cities
-
+        cities: action.cities,
       }
     }
     case LOAD_CURRENT_CITY_JAMS: {

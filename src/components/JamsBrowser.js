@@ -15,7 +15,6 @@ import 'fontsource-roboto';
 
 const JamsBrowser = () => {
   const cities = useSelector((state) => state.jams.cities);
-  console.log(cities)
   const token = useSelector((state) => state.authentication.token);
   const current = useSelector((state) => state.jams.current)
   const dispatch = useDispatch();
@@ -24,23 +23,15 @@ const JamsBrowser = () => {
     dispatch(getCities());
   }, [current]);
 
-
-  // const handleClick = e => {
-  //   console.log(e.target.id)
-  //   dispatch(setCurrentCity(e.target.id))
-  // }
-
   if (!cities) {
     return null;
   }
   return (
     <>
       <CitiesGrid />
-      {/* <CityJamsGrid  /> */}
-      <Route
-        path={`/jamsBrowser/${current}`}
-        render={(props) => <CityJamsGrid {...props} token={token} />}
-      />
+      <Route path={`/jamsBrowser/${current}`}>
+      </Route>
+        <CityJamsGrid />
     </>
   )
 }

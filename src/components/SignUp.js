@@ -27,7 +27,6 @@ const SignUp = props => {
       password,
       confirmPassword
     }
-    console.log(payload)
     dispatch(signup(payload));
   }
 

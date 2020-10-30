@@ -23,9 +23,10 @@ const useStyles = makeStyles({
   },
 });
 
-export default function CityJamsCard() {
+export default function CityJamsCard(jam) {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
+  const { firstName } = jam.host
 
   return (
     <Card className={classes.root} variant="outlined">
@@ -34,7 +35,7 @@ export default function CityJamsCard() {
           Word of the Day
         </Typography>
         <Typography variant="h5" component="h2">
-          be{bull}nev{bull}o{bull}lent
+          Jam with {firstName}
         </Typography>
         <Typography className={classes.pos} color="textSecondary">
           adjective

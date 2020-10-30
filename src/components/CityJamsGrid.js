@@ -32,34 +32,21 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CityJamsGrid() {
   const classes = useStyles();
-  const current = useSelector(state => state.jams.currentCity)
-  const cities = useSelector((state) => state.jams.cities);
-  const currentCity = cities[current]
+  const jams = useSelector(state => state.jams.jams)
+
+  if (!jams) return null
+
   return (
-    console.log(currentCity.name),
+    // console.log(jams),
+    <div className={classes.root}>
+      <GridList className={classes.gridList} cols={2.5}>
 
-      <div className={classes.root}>
-        <GridList className={classes.gridList} cols={2.5}>
-
-          {/* {currentCity.Jams.map((jam) => (
+        {jams.map((jam) => {
           console.log(jam)
-          <GridListTile key={tile.img}>
-          <img src={tile.img} alt={tile.title} />
-          <GridListTileBar
-          title={tile.title}
-          classes={{
-            root: classes.titleBar,
-            title: classes.title,
-          }}
-          actionIcon={
-            <IconButton aria-label={`star ${tile.title}`}>
-            <StarBorderIcon className={classes.title} />
-            </IconButton>
-          }
-          />
-          </GridListTile>
-        ))} */}
-        </GridList>
-      </div>
-  );
+          return <CityJamsCard {...jam}/>
+
+        })}
+      </GridList>
+    </div>
+  )
 }
