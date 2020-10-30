@@ -32,14 +32,14 @@ function App() {
 
   return (
     <BrowserRouter>
-        <Route exact path='/landing' component={Landing} />
         <Route path='/jamsBrowser'
           component={JamsBrowser}
         />
       <Switch>
+        <Route path='/signin' component={SigninSide} />
         <Route path='/login' component={Login} />
         <Route path='/signup' component={SignUp} />
-        <Route path='/signin' component={SigninSide} />
+        <Route exact path='/' component={Landing} />
       </Switch>
         {/* <Route path='/' component={NavBar} /> */}
     </BrowserRouter>

@@ -7,6 +7,7 @@ import { setCurrentCity, getCities } from '../store/jams'
 import CityJamsGrid from './CityJamsGrid'
 import CitiesGrid from './CitiesGrid'
 import { Route } from 'react-router-dom'
+import Navbar from './NavBar'
 
 import 'fontsource-roboto';
 
@@ -28,6 +29,7 @@ const JamsBrowser = () => {
   }
   return (
     <>
+      <Navbar></Navbar>
       <CitiesGrid />
       <Route path={`/jamsBrowser/${current}`}>
       </Route>

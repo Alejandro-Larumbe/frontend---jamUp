@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -6,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,6 +23,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function NavBar() {
   const classes = useStyles();
+  const token = useSelector((state) => state.authentication.token);
+
 
   return (
     <div className={classes.root}>
@@ -30,9 +34,13 @@ export default function NavBar() {
           <Typography variant="h6" className={classes.title}>
             JamUp
           </Typography>
+          <Link to='/JamsBrowser'>
           <Button color="inherit">Jams</Button>
+          </Link>
           <Button color="inherit">Dashboard</Button>
-          <Button color="inherit">Login</Button>
+          {token?
+          <Button color="inherit">Logout</Button>
+          :<Link to='/login'><Button color="inherit">Login</Button></Link>}
         </Toolbar>
       </AppBar>
     </div>

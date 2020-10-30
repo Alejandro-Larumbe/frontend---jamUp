@@ -23,27 +23,42 @@ const useStyles = makeStyles({
   },
 });
 
+function formatTime(date) {
+
+  let hours = date.slice(0, 2);
+  let minutes = date.slice(-5, -3);
+  let ampm = hours >= 12 ? 'pm' : 'am';
+  hours = hours % 12;
+  hours = hours ? hours : 12; // the hour '0' should be '12'
+  // minutes = minutes < 10 ? '0'+minutes : minutes;
+  let strTime = hours + ':' + minutes + ' ' + ampm;
+  return strTime;
+}
+
+
 export default function CityJamsCard(jam) {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
   const { firstName } = jam.host
+  let { time, date, description } = jam
+  time = formatTime(time)
 
   return (
     <Card className={classes.root} variant="outlined">
       <CardContent>
-        <Typography className={classes.title} color="textSecondary" gutterBottom>
+        {/* <Typography className={classes.title} color="textSecondary" gutterBottom>
           Word of the Day
-        </Typography>
-        <Typography variant="h5" component="h2">
+        </Typography> */}
+        <Typography variant="h5" component="h3">
           Jam with {firstName}
         </Typography>
         <Typography className={classes.pos} color="textSecondary">
-          adjective
+          {date} {bull} {time}
         </Typography>
         <Typography variant="body2" component="p">
-          well meaning and kindly.
-          <br />
-          {'"a benevolent smile"'}
+        {description}
+          {/* <br />
+          {'"a benevolent smile"'} */}
         </Typography>
       </CardContent>
       <CardActions>

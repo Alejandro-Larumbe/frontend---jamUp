@@ -44,7 +44,6 @@ export default function CityJamsGrid() {
         {jams.map((jam) => {
           console.log(jam)
           return <CityJamsCard {...jam}/>
-
         })}
       </GridList>
     </div>

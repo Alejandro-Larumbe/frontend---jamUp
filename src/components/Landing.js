@@ -1,5 +1,6 @@
 import React from 'react';
  import { imageUrl } from '../config'
+ import Navbar from './NavBar'
 // const styles = (theme) => ({
 //   background: {
 //     backgroundimage: `url(${backgroundImage})`,
@@ -11,13 +12,11 @@ import React from 'react';
 
 const Landing = () => {
   return (
-    // <div style = {{ backgroundImage: `url(${process.env.PUBLIC_URL + '/images/home.jpeg'})`,
-    <div style = {{ backgroundImage: `url(${imageUrl}/home.jpeg`,
-
-    }
-
-    }>Landing
+    <>
+    <Navbar></Navbar>
+    <div style = {{ backgroundImage: `url(${imageUrl}/home.jpeg`}}>
     </div>
+    </>
   )
 }
 
