@@ -33,7 +33,21 @@ export const setJam = (id) => async(dispatch) => {
   }
 }
 
+export const notGoing = (userId, jamId) => async dispatch => {
+  const response = await fetch(`${baseUrl}/users/${userId}/jammer/${jamId}`, {
+    method: 'delete',
+    headers: { 'Content-Type': 'application/json' },
+  });
+  if (response.ok) console.log('user cancelled jam successfully')
+}
 
+export const going = (userId, jamId) => async dispatch => {
+  const response = await fetch(`${baseUrl}/users/${userId}/jammer/${jamId}`, {
+    method: 'post',
+    headers: { 'Content-Type': 'application/json' },
+  });
+  if (response.ok) console.log('user cancelled jam successfully')
+}
 
 
 export default function reducer(state = {}, action) {

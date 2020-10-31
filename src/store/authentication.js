@@ -61,6 +61,7 @@ export const signup = payload => async dispatch => {
 
 
 
+
 function authentication(state = {}, action) {
   switch (action.type) {
     case SET_TOKEN: {

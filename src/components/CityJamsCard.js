@@ -16,6 +16,9 @@ import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
 import { setJam } from '../store/jams'
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import { formatTime } from './utils';
+
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,17 +43,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
-function formatTime(date) {
-  let hours = date.slice(0, 2);
-  let minutes = date.slice(-5, -3);
-  let ampm = hours >= 12 ? 'pm' : 'am';
-  hours = hours % 12;
-  hours = hours ? hours : 12; // the hour '0' should be '12'
-  // minutes = minutes < 10 ? '0'+minutes : minutes;
-  let strTime = hours + ':' + minutes + ' ' + ampm;
-  return strTime;
-}
+// function formatTime(date) {
+//   let hours = date.slice(0, 2);
+//   let minutes = date.slice(-5, -3);
+//   let ampm = hours >= 12 ? 'pm' : 'am';
+//   hours = hours % 12;
+//   hours = hours ? hours : 12; // the hour '0' should be '12'
+//   // minutes = minutes < 10 ? '0'+minutes : minutes;
+//   let strTime = hours + ':' + minutes + ' ' + ampm;
+//   return strTime;
+// }
 
 
 export default function CityJamsCard(jam) {
@@ -59,8 +61,8 @@ export default function CityJamsCard(jam) {
   const dispatch = useDispatch()
 
   const bull = <span className={classes.bullet}>•</span>;
-  const { firstName } = jam.host
-  let { time, date, description, id, cityId, host, attending } = jam
+  const { firstName, photoUrl } = jam.host
+  let { time, date, description, id, cityId, attending } = jam
   time = formatTime(time)
 
 
@@ -70,18 +72,17 @@ export default function CityJamsCard(jam) {
     dispatch(setJam(id))
   }
 
-
   return (
     <Card onClick={clickHandler} className={classes.root}>
       <CardHeader
         avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
+          <Avatar aria-label="recipe" src={photoUrl} className={classes.avatar}>
             R
           </Avatar>
         }
 
         title={`Jam with ${firstName}`}
-        subheader="September 14, 2016"
+        subheader={`${date} | ${time}`}
       />
 
       <CardContent>
