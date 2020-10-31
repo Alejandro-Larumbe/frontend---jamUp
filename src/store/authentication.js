@@ -8,7 +8,7 @@ const REMOVE_TOKEN = 'REMOVE_TOKEN';
 const CREATE_USER = 'CREATE_USER';
 
 
-export const removeToken = token => ({ type: REMOVE_TOKEN });
+export const removeToken = token => ({ type: REMOVE_TOKEN, token });
 export const setToken = token => ({ type: SET_TOKEN, token });
 export const setUserId = id => ({ type: SET_USER_ID, id })
 
@@ -35,11 +35,19 @@ export const login = (email, password) => async dispatch => {
   }
 };
 
+export const logout = () => async (dispatch, getState) => {
+  // const { authentication: { token } } = getState();
+  window.localStorage.removeItem(TOKEN_KEY);
+  window.localStorage.removeItem(USER_ID_KEY);
+  dispatch(removeToken());
+
+}
+
 export const signup = payload => async dispatch => {
   const response = await fetch(`${baseUrl}/users`, {
     method: 'post',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify( payload ),
+    body: JSON.stringify(payload),
   })
 
   if (response.ok) {

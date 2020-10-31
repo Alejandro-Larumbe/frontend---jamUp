@@ -11,10 +11,12 @@ const reducer = combineReducers({
   jams
 });
 
-const configureStore = initialState => {
+
+
+const configureStore = defaultState => {
   return createStore(
     reducer,
-    initialState,
+    defaultState,
     composeEnhancers(applyMiddleware(thunk))
   );
 };

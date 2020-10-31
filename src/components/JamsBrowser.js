@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
+// import './componentStyles.css'
 import { useSelector, useDispatch } from "react-redux";
-import City from './City';
-import Jams from './Jams';
 import CityJamsPreview from './CityJamsGrid';
 import { setCurrentCity, getCities } from '../store/jams'
 import CityJamsGrid from './CityJamsGrid'
 import CitiesGrid from './CitiesGrid'
-import { Route } from 'react-router-dom'
+import { Route, useParams } from 'react-router-dom'
 import Navbar from './NavBar'
 import { imageUrl } from '../config'
 import JamCard from './JamCard';
@@ -32,16 +31,16 @@ const JamsBrowser = () => {
   return (
     <>
       <Navbar></Navbar>
-      <div id="browser-image"width='50%' style={{  backgroundImage: `url(${imageUrl}/browser.jpeg`, height: '35vh'}} />
-      <div style={{ height:"150px" }} />
+      <div id="browser-image" width='50%' style={{ backgroundImage: `url(${imageUrl}/browser.jpeg`, height: '35vh' }} />
+      <div style={{ height: "150px" }} />
       <CitiesGrid />
       <Route path={`/jamsBrowser/${current}`}>
       </Route>
-      <div style={{ height:"100px" }} />
+      <div style={{ height: "100px" }} />
       <CityJamsGrid />
-      <div style={{ height:"150px" }} />
-      <JamCard />
-
+      <div style={{ height: "150px" }} />
+      <Route path='/jamsBrowser/:cityId/jamId/:id' component={JamCard}/>
+      <div id="overlay"></div>
     </>
   )
 }

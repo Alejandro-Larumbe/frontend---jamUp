@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { login } from '../store/authentication';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 
 const Login = props => {
   const token = useSelector(state => state.authentication.token);
-  const [email, setEmail] = useState('data@data.data');
+  const [email, setEmail] = useState('Burnice.Tremblay@hotmail.com');
   const [password, setPassword] = useState('password');
   const dispatch = useDispatch();
+  let history = useHistory();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // history.push('/jamsBrowser');
     dispatch(login(email, password));
   }
 

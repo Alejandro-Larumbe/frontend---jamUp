@@ -2,11 +2,14 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
+import { useHistory, useParams, Route } from 'react-router-dom';
+
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import IconButton from '@material-ui/core/IconButton';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import CityJamsCard from './CityJamsCard'
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,16 +36,27 @@ const useStyles = makeStyles((theme) => ({
 export default function CityJamsGrid() {
   const classes = useStyles();
   const jams = useSelector(state => state.jams.jams)
+  let history = useHistory();
 
-  if(!jams) return null
+
+  const clickHandler = (e) => {
+
+  }
+
+  if (!jams) return null
 
   return (
     // console.log(jams),
     <div className={classes.root}>
       <GridList className={classes.gridList} cols={2.5}>
-      {jams.map((jam) => {
-          console.log(jam)
-          return <CityJamsCard {...jam}/>
+        {jams.map((jam) => {
+          // console.log(jam)
+          return (
+            <>
+              {/* <Route path={`${useLocation}/${jam.id}`} /> */}
+              <CityJamsCard key={jam.id} {...jam} />
+            </>
+          )
         })}
       </GridList>
     </div>

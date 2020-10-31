@@ -1,5 +1,6 @@
 import React from 'react';
-import { useSelector } from 'react-redux'
+import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -16,12 +17,14 @@ import CardContent from '@material-ui/core/CardContent';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
-
 import { red } from '@material-ui/core/colors';
-
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import CancelIcon from '@material-ui/icons/Cancel';
+
+import '../index.css'
 
 const useStyles = makeStyles((theme) => ({
+
   root: {
     maxWidth: 345,
   },
@@ -59,115 +62,136 @@ function formatTime(date) {
 }
 
 
-export default function JamCard() {
-
+export default function JamCard(props) {
   const classes = useStyles();
+  const id = props.match.params.id
+  const jams = useSelector( state => state.jams.jams)
+  // const
+  if (!id) return null
+
+  // for (let i = 0; i < jams.length; )
+
+  // console.log(id)
+  // console.log(jams)
+
+
+  // if (!jam) return null;
   const bull = <span className={classes.bullet}>•</span>;
-  // const { firstName } = jam.host
-  // let { time, date, description } = jam
-  // time = formatTime(time)
+
   return (
-    <Card className={classes.root}>
-      <CardHeader
-        avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
-            R
-          </Avatar>
-        }
+    <>
+      <Card className={classes.root, 'modal'}>
+        <CardHeader classname={'card-header'}
+          // avatar={
+          //   <Avatar aria-label="recipe" src={jam.host.photoId} className={classes.avatar}>
+          //     R
+          // </Avatar>
+          // }
 
-        title={
-          <Typography variant="h6" component="h4">
-            Jam with with Jonhy
-      </Typography>}
-        subheader={
-          <Typography variant="h7" component="h4">
-            violin
-      </Typography>}
-      // subheader="7:30 pm"
-      />
+          title={
+            <>
+              <Typography variant="h6" component="h4">
+                {/* Jam with with {jam.host.firstName} */}
+              </Typography>
+              <Typography variant="h7" component="h4">
+                {/* {jam.host.username} */}
+              </Typography>
+              <Typography variant="h7" component="h4">
+                {/* {jam.host.instrument} */}
+              </Typography>
+            </>
+          }
+        // subheader={
+        // <>
+        //   <CancelIcon className='closeImg'/>
+        // </>
+        // }
+        />
 
-      <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
-          {'September 13 1999'}
-        </Typography>
-        <Typography variant="body2" color="textSecondary" component="p">
-          {'3:30pm'}
-        </Typography>
-        <div style={{ height: "30px" }} />
-        <Typography variant="body2" color="textSecondary" component="p">
-          {'come jam with a bunch of cool cats. we will get tequila'}
-        </Typography>
-        <div style={{ height: "15px" }} />
-        <Typography variant="body2" color="textSecondary" component="p">
-          {'address:'}
-        </Typography>
-        <Typography variant="body2" color="textSecondary" component="p">
-          {'2907 Roundtre blvd, apt E2, Ann Arbor, Mi, USA'}
-        </Typography>
-        <div style={{ height: "15px" }} />
-        <Typography variant="body2" color="textSecondary" component="p">
-          {'attending:'}
-        </Typography>
-        <List className={classes.root}>
-          <ListItem>
-            <ListItemAvatar>
-              <Avatar>
-                <ImageIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText primary="Photos" secondary="Jan 9, 2014" />
-          </ListItem>
-          <Divider variant="inset" component="li" />
-          <ListItem>
-            <ListItemAvatar>
-              <Avatar>
-                <ImageIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText primary="Photos" secondary="Jan 9, 2014" />
-          </ListItem>
-          <Divider variant="inset" component="li" />
-          <ListItem>
-            <ListItemAvatar>
-              <Avatar>
-                <ImageIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText primary="Photos" secondary="Jan 9, 2014" />
-          </ListItem>
-          <Divider variant="inset" component="li" />
-          <ListItem>
-            <ListItemAvatar>
-              <Avatar>
-                <ImageIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText primary="Photos" secondary="Jan 9, 2014" />
-          </ListItem>
-          <Divider variant="inset" component="li" />
-          <ListItem>
-            <ListItemAvatar>
-              <Avatar>
-                <ImageIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText primary="Photos" secondary="Jan 9, 2014" />
-          </ListItem>
-          <Divider variant="inset" component="li" />
-          <ListItem>
-            <ListItemAvatar>
-              <Avatar>
-                <ImageIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText primary="Photos" secondary="Jan 9, 2014" />
-          </ListItem>
-          <Divider variant="inset" component="li" />
-        </List>
-      </CardContent>
-      <CardActions>
-        <Button size="small">Attend</Button>
-      </CardActions>
-    </Card>
+        <CardContent>
+          <Typography variant="body2" color="textSecondary" component="p">
+            {'September 13 1999'}
+          </Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+            {'3:30pm'}
+          </Typography>
+          <div style={{ height: "30px" }} />
+          <Typography variant="body2" color="textSecondary" component="p">
+            {'come jam with a bunch of cool cats. we will get tequila'}
+          </Typography>
+          <div style={{ height: "15px" }} />
+          <Typography variant="body2" color="textSecondary" component="p">
+            {'address:'}
+          </Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+            {'2907 Roundtre blvd, apt E2, Ann Arbor, Mi, USA'}
+          </Typography>
+          <div style={{ height: "15px" }} />
+          <Typography variant="body2" color="textSecondary" component="p">
+            {'attending:'}
+          </Typography>
+          <List className={classes.root}>
+            <ListItem>
+              <ListItemAvatar>
+                <Avatar>
+                  <ImageIcon />
+                </Avatar>
+              </ListItemAvatar>
+              <ListItemText primary="Photos" secondary="Jan 9, 2014" />
+            </ListItem>
+            <Divider variant="inset" component="li" />
+            <ListItem>
+              <ListItemAvatar>
+                <Avatar>
+                  <ImageIcon />
+                </Avatar>
+              </ListItemAvatar>
+              <ListItemText primary="Photos" secondary="Jan 9, 2014" />
+            </ListItem>
+            <Divider variant="inset" component="li" />
+            <ListItem>
+              <ListItemAvatar>
+                <Avatar>
+                  <ImageIcon />
+                </Avatar>
+              </ListItemAvatar>
+              <ListItemText primary="Photos" secondary="Jan 9, 2014" />
+            </ListItem>
+            <Divider variant="inset" component="li" />
+            <ListItem>
+              <ListItemAvatar>
+                <Avatar>
+                  <ImageIcon />
+                </Avatar>
+              </ListItemAvatar>
+              <ListItemText primary="Photos" secondary="Jan 9, 2014" />
+            </ListItem>
+            <Divider variant="inset" component="li" />
+            <ListItem>
+              <ListItemAvatar>
+                <Avatar>
+                  <ImageIcon />
+                </Avatar>
+              </ListItemAvatar>
+              <ListItemText primary="Photos" secondary="Jan 9, 2014" />
+            </ListItem>
+            <Divider variant="inset" component="li" />
+            <ListItem>
+              <ListItemAvatar>
+                <Avatar>
+                  <ImageIcon />
+                </Avatar>
+              </ListItemAvatar>
+              <ListItemText primary="Photos" secondary="Jan 9, 2014" />
+            </ListItem>
+            <Divider variant="inset" component="li" />
+          </List>
+        </CardContent>
+        <CardActions>
+          <Button size="small">Attend</Button>
+          <Button size="small">Close</Button>
+        </CardActions>
+      </Card>
+    </>
   );
 }

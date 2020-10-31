@@ -8,6 +8,7 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import IconButton from '@material-ui/core/IconButton';
 import { setCurrentCity } from '../store/jams'
 import { NavLink } from 'react-router-dom'
+import { imageUrl } from '../config'
 
 import InfoIcon from '@material-ui/icons/Info';
 // import tileData from './tileData';
@@ -52,6 +53,7 @@ export default function CitiesGrid() {
 
 
   const handleClick = e => {
+    console.log(e.target.id)
     dispatch(setCurrentCity(e.target.id))
   }
   const classes = useStyles();
@@ -65,7 +67,7 @@ export default function CitiesGrid() {
         {cities.map((city, i) => (
           <GridListTile key={city.id}>
             <NavLink key={city.id} to={`/jamsBrowser/${city.id}`}>
-              <img src={city.photoUrl} alt={city.name} id={i} onClick={handleClick} />
+              <img src={`${imageUrl}/${i}.jpeg`} alt={city.name} id={city.id} onClick={handleClick} />
               <GridListTileBar
                 title={city.name}
               // subtitle={<span>by: {tile.author}</span>}
