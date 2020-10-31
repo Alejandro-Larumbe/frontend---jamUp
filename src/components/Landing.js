@@ -19,7 +19,7 @@ const Landing = () => {
   return (
     <>
       <Navbar></Navbar>
-      <div id="landing-image" width='100%' style={{  backgroundImage: `url(${imageUrl}/home.jpeg`, height: '60vh' }} />
+      <div id="landing-image" width='100%' style={{ backgroundImage: `url(${imageUrl}/home.jpeg`, height: '60vh' }} />
     </>
   )
 }
