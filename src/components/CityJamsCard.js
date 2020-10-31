@@ -55,14 +55,18 @@ const useStyles = makeStyles((theme) => ({
 // }
 
 
-export default function CityJamsCard(jam) {
+export default function CityJamsCard(props) {
   const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch()
+  // const location = userLocation();
+  // const userId = props.match.params.id
+  console.log('params', props.match.params)
+
 
   const bull = <span className={classes.bullet}>•</span>;
-  const { firstName, photoUrl } = jam.host
-  let { time, date, description, id, cityId, attending } = jam
+  const { firstName, photoUrl } = props.jam.host
+  let { time, date, description, id, cityId, attending } = props.jam
   time = formatTime(time)
 
 

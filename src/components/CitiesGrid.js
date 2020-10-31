@@ -47,16 +47,21 @@ const useStyles = makeStyles((theme) => ({
  *   },
  * ];
  */
-export default function CitiesGrid() {
+export default function CitiesGrid(props) {
+  const classes = useStyles();
+  const { id }= props.match.params
   const cities = useSelector((state) => state.jams.cities);
   const dispatch = useDispatch();
 
+  // const id = props.match.params.id
+
+  if (!cities) return null;
 
   const handleClick = e => {
     console.log(e.target.id)
     dispatch(setCurrentCity(e.target.id))
+
   }
-  const classes = useStyles();
 
   return (
     <div className={classes.root}>
@@ -66,7 +71,7 @@ export default function CitiesGrid() {
         </GridListTile>
         {cities.map((city, i) => (
           <GridListTile key={city.id}>
-            <NavLink key={city.id} to={`/jamsBrowser/${city.id}`}>
+            <NavLink key={city.id} to={`/jamsBrowser/user/${id}/city/${city.id}`}>
               <img src={`${imageUrl}/${i}.jpeg`} alt={city.name} id={city.id} onClick={handleClick} />
               <GridListTileBar
                 title={city.name}

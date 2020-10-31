@@ -33,13 +33,14 @@ const JamsBrowser = () => {
       <Navbar></Navbar>
       <div id="browser-image" width='50%' style={{ backgroundImage: `url(${imageUrl}/browser.jpeg`, height: '35vh' }} />
       <div style={{ height: "150px" }} />
-      <CitiesGrid />
-      <Route path={`/jamsBrowser/${current}`}>
-      </Route>
+      <Route path='/jamsBrowser/user/:id/city/:cityId/jamId/:jamId' component={JamCard}/>
+      <Route path='/jamsBrowser/user/:id/city/:cityId' component={CityJamsGrid} />
+      {/* <Route path='/jamsBrowser/user/:id/city/:cityId' component={CitiesGrid} /> */}
+      <Route path={`/jamsBrowser/user/:id/ga ${current}`}>
+      {/* </Route> */}
       <div style={{ height: "100px" }} />
       <CityJamsGrid />
       <div style={{ height: "150px" }} />
-      <Route path='/jamsBrowser/user/:id/city/:cityId/jamId/:jamId' component={JamCard}/>
       <div id="overlay"></div>
     </>
   )

@@ -54,7 +54,7 @@ export default function CityJamsGrid() {
           return (
             <>
               {/* <Route path={`${useLocation}/${jam.id}`} /> */}
-              <CityJamsCard key={jam.id} {...jam} />
+              <Route key={jam.id} render={props=> <CityJamsCard {...props} jam={jam}/>} />
             </>
           )
         })}

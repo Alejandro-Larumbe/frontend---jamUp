@@ -68,20 +68,20 @@ const useStyles = makeStyles((theme) => ({
 
 export default function JamCard(props) {
   const classes = useStyles();
-  const id = props.match.params.id
+  const jamId = props.match.params.id
   const jams = useSelector(state => state.jams.jams)
   const userId = useSelector(state => state.authentication.id)
   const dispatch = useDispatch()
 
   console.log(jams)
-  if (!id) return null
+  if (!jamId) return null
   console.log('userId', userId)
 
   let jam = {}
   jams.forEach((cur) => {
-    console.log(cur.id, id)
-    console.log(cur.id === parseInt(id))
-    if (cur.id === parseInt(id)) {
+    console.log(cur.id, jamId)
+    console.log(cur.id === parseInt(jamId))
+    if (cur.id === parseInt(jamId)) {
       jam = cur
     }
   })
