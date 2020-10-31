@@ -39,7 +39,7 @@ const JamsBrowser = () => {
       <div style={{ height: "100px" }} />
       <CityJamsGrid />
       <div style={{ height: "150px" }} />
-      <Route path='/jamsBrowser/:cityId/jamId/:id' component={JamCard}/>
+      <Route path='/jamsBrowser/user/:id/city/:cityId/jamId/:jamId' component={JamCard}/>
       <div id="overlay"></div>
     </>
   )

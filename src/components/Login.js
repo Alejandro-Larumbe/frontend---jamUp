@@ -4,7 +4,7 @@ import { login } from '../store/authentication';
 import { Redirect, useHistory } from 'react-router-dom';
 
 const Login = props => {
-  const token = useSelector(state => state.authentication.token);
+  const { token, id } = useSelector(state => state.authentication);
   const [email, setEmail] = useState('Burnice.Tremblay@hotmail.com');
   const [password, setPassword] = useState('password');
   const dispatch = useDispatch();
@@ -12,8 +12,9 @@ const Login = props => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // history.push('/jamsBrowser');
     dispatch(login(email, password));
+    console.log(id)
+    history.push(`/jamsBrowser/user/${id}`);
   }
 
   const updateEmail = (e) => {
