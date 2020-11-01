@@ -6,6 +6,6 @@ module.exports = {
   // export const baseUrl = process.env.REACT_APP_BASEURL || 'http://localhost:8000/api';
   imageUrl:
     process.env.NODE_ENV === "development"
-      ? 'https://jamup.s3.us-east-2.amazonaws.com'
-      : process.env.PUBLIC_URL + '/images',
+      ? process.env.PUBLIC_URL + '/images'
+      : 'https://jamup.s3.us-east-2.amazonaws.com'
 }
