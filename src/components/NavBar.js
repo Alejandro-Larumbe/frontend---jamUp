@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { useHistory } from 'react-router-dom';
-
+import { useHistory, Redirect } from 'react-router-dom';
+import { USER_ID_KEY } from '../store/authentication'
 
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -27,14 +27,30 @@ const useStyles = makeStyles((theme) => ({
 
 export default function NavBar() {
   const classes = useStyles();
-  const token = useSelector((state) => state.authentication.token);
+  const { token, id } = useSelector((state) => state.authentication);
   const dispatch = useDispatch();
   let history = useHistory();
 
-  const clickHandler = (e) => {
+  const logOutHandler = (e) => {
     history.push('/');
     dispatch(logout());
+  }
 
+  const jamsHandler = (e) => {
+    console.log('id', id)
+    if (!id) {
+      history.push('/signin')
+    } else {
+      history.push(`/jamsBrowser/user/${id}`)
+    }
+  }
+
+  const dashboardHandler = () => {
+    if (!id) {
+      history.push('/signin')
+    } else {
+      history.push(`/user/${id}/dashboard`)
+    }
   }
 
   return (
@@ -43,15 +59,16 @@ export default function NavBar() {
         <Toolbar>
 
           <Typography variant="h6" className={classes.title}>
-            JamUp
+            <Link to='/'>
+              JamUp
+
+            </Link>
           </Typography>
-          <Link to='/JamsBrowser'>
-          <Button color="inherit">Jams</Button>
-          </Link>
-          <Button color="inherit">Dashboard</Button>
-          {token?
-          <Button color="inherit" onClick={clickHandler}>Logout</Button>
-          :<Link to='/login'><Button color="inherit">Login</Button></Link>}
+            <Button color="inherit" onClick={jamsHandler}>Jams</Button>
+          <Button color="inherit" onClick={dashboardHandler}>Dashboard</Button>
+          {token ?
+            <Button color="inherit" onClick={logOutHandler}>Logout</Button>
+            : <Link to='/signin'><Button color="inherit">Login</Button></Link>}
         </Toolbar>
       </AppBar>
     </div>

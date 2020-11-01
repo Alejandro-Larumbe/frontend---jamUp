@@ -60,8 +60,7 @@ export default function CityJamsCard(props) {
   const history = useHistory();
   const dispatch = useDispatch()
   // const location = userLocation();
-  // const userId = props.match.params.id
-  console.log('params', props.match.params)
+  const userId = props.match.params.id
 
 
   const bull = <span className={classes.bullet}>•</span>;
@@ -72,8 +71,8 @@ export default function CityJamsCard(props) {
 
 
   const clickHandler = (e) => {
-    history.push(`/jamsBrowser/${cityId}/jamId/${id}`)
-    dispatch(setJam(id))
+    history.push(`/jamsBrowser/user/${userId}/city/${cityId}/jamId/${id}`)
+    // dispatch(setJam(id))
   }
 
   return (

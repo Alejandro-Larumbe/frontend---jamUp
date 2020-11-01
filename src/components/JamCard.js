@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, Redirect, useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -68,14 +68,15 @@ const useStyles = makeStyles((theme) => ({
 
 export default function JamCard(props) {
   const classes = useStyles();
-  const jamId = props.match.params.id
+  const { id, cityId, jamId } = props.match.params
   const jams = useSelector(state => state.jams.jams)
   const userId = useSelector(state => state.authentication.id)
   const dispatch = useDispatch()
+  const history = useHistory();
 
   console.log(jams)
-  if (!jamId) return null
   console.log('userId', userId)
+  if (!jams) return null
 
   let jam = {}
   jams.forEach((cur) => {
@@ -85,6 +86,7 @@ export default function JamCard(props) {
       jam = cur
     }
   })
+  if (!jam) return null
 
   let someoneIsAttending = !!jam.attending.length
   let userIsAttending = false
@@ -106,6 +108,10 @@ export default function JamCard(props) {
   // console.log(id)
   console.log('attending', jam.attending)
 
+  let closeHandler = () => {
+    console.log('hello')
+    history.push(`/jamsBrowser/user/${userId}/city/${cityId}`)
+  }
   let goingHandler = e => {
     dispatch(going(userId, jam.id))
   }
@@ -114,6 +120,7 @@ export default function JamCard(props) {
     dispatch(notGoing(userId, jam.id))
 
   }
+
 
 
   // if (!jam) return null;
@@ -181,10 +188,10 @@ export default function JamCard(props) {
           </List>
         </CardContent>
         <CardActions>
-          {userIsAttending?<Button size="small">Can't go anymore</Button>
+          {userIsAttending?<Button onClick={notGoingHandler} size="small">Can't go anymore</Button>
           :<Button onClick={goingHandler} size="small">Im going!</Button>
-          }
-          <Button onClick={notGoingHandler} size="small">Close</Button>
+        }
+        <Button onClick={closeHandler} size="small">Close!</Button>
         </CardActions>
       </Card>
     </>

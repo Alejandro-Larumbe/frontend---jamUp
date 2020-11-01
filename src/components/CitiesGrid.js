@@ -49,7 +49,8 @@ const useStyles = makeStyles((theme) => ({
  */
 export default function CitiesGrid(props) {
   const classes = useStyles();
-  const { id }= props.match.params
+  const id = useSelector(state => state.authentication.id)
+  // const cities = useSelector((state) => state.jams.cities);
   const cities = useSelector((state) => state.jams.cities);
   const dispatch = useDispatch();
 

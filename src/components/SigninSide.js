@@ -2,45 +2,28 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { login } from '../store/authentication';
-import { Redirect } from 'react-router-dom';
-
-
-
-
+import { Redirect, useHistory } from 'react-router-dom';
+import { imageUrl } from '../config'
 
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
-import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+const image = `url(${imageUrl}/login.jpeg)`
 
 const useStyles = makeStyles((theme) => ({
   root: {
     height: '100vh',
   },
   image: {
-    backgroundImage: 'url(https://source.unsplash.com/random)',
+    backgroundImage: image,
     backgroundRepeat: 'no-repeat',
     backgroundColor:
       theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
@@ -66,17 +49,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
 export default function SignInSide() {
   const classes = useStyles();
 
-  const token = useSelector(state => state.authentication.token);
-  const [email, setEmail] = useState('larus@larus.com');
-  const [password, setPassword] = useState('something');
+  const { token } = useSelector(state => state.authentication);
+  const [email, setEmail] = useState('Burnice.Tremblay@hotmail.com');
+  const [password, setPassword] = useState('password');
   const dispatch = useDispatch();
+  let history = useHistory();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(login(email, password));
+    // setTimeout(() => console.log('waited'), 1000 )
+    // const id = window.localStorage.getItem(USER_ID_KEY)
+
+    // console.log('id', id)
+    // console.log(id)
+    history.push(`/jamsBrowser/user/:id`);
   }
 
   const updateEmail = (e) => {
@@ -85,10 +76,6 @@ export default function SignInSide() {
 
   const updatePassword = (e) => {
     setPassword(e.target.value);
-  }
-
-  if (token) {
-    return <Redirect to="/" />
   }
 
 
@@ -136,10 +123,6 @@ export default function SignInSide() {
               value={password}
               onChange={updatePassword}
             />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
             <Button
               type="submit"
               fullWidth
@@ -150,20 +133,12 @@ export default function SignInSide() {
               Sign In
             </Button>
             <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/signup" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
             </Grid>
-            <Box mt={5}>
-              <Copyright />
-            </Box>
           </form>
         </div>
       </Grid>

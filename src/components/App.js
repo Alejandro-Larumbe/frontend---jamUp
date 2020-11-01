@@ -10,6 +10,7 @@ import SignUp from './SignUp';
 import Landing from './Landing';
 import SigninSide from './SigninSide'
 import NavBar from './NavBar'
+import Dashboard from './Dashboard'
 
 
 
@@ -32,12 +33,13 @@ function App() {
 
   return (
     <BrowserRouter>
-        <Route path='/jamsBrowser'component={JamsBrowser} />
       <Switch>
+        <Route path='/signup' component={SignUp} />
+        <Route path='/user/:id/dashboard' component={Dashboard} />
         <Route path='/signin' component={SigninSide} />
         <Route path='/login' component={Login} />
-        <Route path='/signup' component={SignUp} />
-        <Route exact path='/' component={Landing} />
+        <Route path='/jamsBrowser'component={JamsBrowser} />
+        <Route path='/' component={Landing} />
       </Switch>
         {/* <Route path='/' component={NavBar} /> */}
     </BrowserRouter>

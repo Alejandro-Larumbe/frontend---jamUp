@@ -1,14 +1,19 @@
+import { ContactSupportOutlined } from '@material-ui/icons';
 import { baseUrl } from '../config';
 
 const TOKEN_KEY = 'TOKEN_KEY';
 const SET_TOKEN = 'SET_TOKEN';
-const USER_ID_KEY = 'USER_ID_KEY';
+export const USER_ID_KEY = 'USER_ID_KEY';
 const SET_USER_ID = 'SET_USER_ID'
 const REMOVE_TOKEN = 'REMOVE_TOKEN';
+const REMOVE_ID = 'REMOVE_ID';
+const REMOVE_CREDENTIALS = 'REMOVE_CREDENTIALS';
 const CREATE_USER = 'CREATE_USER';
 
 
-export const removeToken = token => ({ type: REMOVE_TOKEN, token });
+// export const removeToken = token => ({ type: REMOVE_TOKEN, token });
+// export const removeId = id => ({ type: REMOVE_ID, id });
+export const removeCredentials = () => ({ type: REMOVE_CREDENTIALS });
 export const setToken = token => ({ type: SET_TOKEN, token });
 export const setUserId = id => ({ type: SET_USER_ID, id })
 
@@ -36,10 +41,11 @@ export const login = (email, password) => async dispatch => {
 };
 
 export const logout = () => async (dispatch, getState) => {
-  // const { authentication: { token } } = getState();
+  const { authentication: { token, id } } = getState();
   window.localStorage.removeItem(TOKEN_KEY);
   window.localStorage.removeItem(USER_ID_KEY);
-  dispatch(removeToken());
+  dispatch(removeCredentials());
+  // dispatch(removeId());
 
 }
 
@@ -52,6 +58,7 @@ export const signup = payload => async dispatch => {
 
   if (response.ok) {
     const { token, id } = await response.json();
+    console.log('signup', 'token', token, 'id', id)
     window.localStorage.setItem(TOKEN_KEY, token);
     window.localStorage.setItem(USER_ID_KEY, id);
     dispatch(setToken(token));
@@ -78,8 +85,19 @@ function authentication(state = {}, action) {
       };
     }
 
-    case REMOVE_TOKEN: {
+    // case REMOVE_TOKEN: {
+    //   const newState = { ...state };
+    //   delete newState.token;
+    //   return newState;
+    // }
+    // case REMOVE_ID: {
+    //   const newState = { ...state };
+    //   delete newState.id;
+    //   return newState;
+    // }
+    case REMOVE_CREDENTIALS: {
       const newState = { ...state };
+      delete newState.id;
       delete newState.token;
       return newState;
     }

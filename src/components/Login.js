@@ -2,19 +2,25 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { login } from '../store/authentication';
 import { Redirect, useHistory } from 'react-router-dom';
+import { USER_ID_KEY } from '../store/authentication'
+
 
 const Login = props => {
-  const { token, id } = useSelector(state => state.authentication);
+  const { token } = useSelector(state => state.authentication);
   const [email, setEmail] = useState('Burnice.Tremblay@hotmail.com');
   const [password, setPassword] = useState('password');
   const dispatch = useDispatch();
   let history = useHistory();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(login(email, password));
-    console.log(id)
-    history.push(`/jamsBrowser/user/${id}`);
+    // setTimeout(() => console.log('waited'), 1000 )
+    // const id = window.localStorage.getItem(USER_ID_KEY)
+
+    // console.log('id', id)
+    // console.log(id)
+    history.push(`/jamsBrowser/user/:id`);
   }
 
   const updateEmail = (e) => {
