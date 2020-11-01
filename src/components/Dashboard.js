@@ -4,8 +4,11 @@ import { Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import NavBar from './NavBar'
+import EditUser from './EditUser'
 
-import { getUserJammer } from '../store/jams'
+import { getUserJammer, getUserJams } from '../store/jams'
+import {  getUser } from '../store/authentication'
+import { USER_ID_KEY } from '../store/authentication'
 
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -16,6 +19,8 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import { yellow } from '@material-ui/core/colors';
 
+import CreateJam from './CreateJam';
+import { EditAttributesRounded } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -54,18 +59,23 @@ function ButtonAppBar() {
 
 const Dashboard = (props) => {
 
-  const jams = useSelector((state) => state.jams.userJammer);
+  const userJams = useSelector((state) => state.jams.userJams);
+  const userJammer = useSelector((state) => state.jams.userJammer);
   const { token } = useSelector((state) => state.authentication);
+  const user = useSelector((state) => state.authentication.user);
   const dispatch = useDispatch();
-  const id = parseInt(props.match.params.id)
+  const id = parseInt(props.match.params.id) || window.localStorage.getItem(USER_ID_KEY)
   console.log(id)
 
 
   useEffect(() => {
     dispatch(getUserJammer(id))
+    dispatch(getUserJams(id))
+    dispatch(getUser(parseInt(id)));
+
   }, []);
 
-  if (!jams) {
+  if (!user) {
     return null;
   }
   // if (!token) {
@@ -77,6 +87,8 @@ const Dashboard = (props) => {
       <NavBar></NavBar>
       <ButtonAppBar />
       <p>Coming soon</p>
+      {/* <CreateJam /> */}
+      <EditUser user={user} />
     </>
   )
 }

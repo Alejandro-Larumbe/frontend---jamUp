@@ -72,7 +72,7 @@ export default function JamCard(props) {
   const jams = useSelector(state => state.jams.jams)
   const userId = useSelector(state => state.authentication.id)
   const dispatch = useDispatch()
-  const history = useHistory();
+  const history = useHistory()
 
   console.log(jams)
   console.log('userId', userId)

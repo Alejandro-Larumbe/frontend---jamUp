@@ -7,5 +7,5 @@ module.exports = {
   imageUrl:
     process.env.NODE_ENV === "development"
       ? process.env.PUBLIC_URL + '/images'
-      : 'https://jamup.s3.us-east-2.amazonaws.com'
+      : 'https://jamup.s3.us-east-2.amazonaws.com',
 }
