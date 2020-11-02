@@ -7,12 +7,15 @@ const LOAD_CURRENT_CITY_JAMS = 'LOAD_CURRENT_CITY_JAMS';
 const LOAD_JAM = 'LOAD_JAM'
 const LOAD_USER_JAMMER = "LOAD_USER_JAMMER"
 const LOAD_USER_JAMS = "LOAD_USER_JAMS"
+const LOAD_USER_JAM = "LOAD_USER_JAM"
 
 export const load = cities => ({ type: LOAD, cities });
 export const loadCurrentCityJams = jams => ({ type: LOAD_CURRENT_CITY_JAMS, jams })
 export const loadJam = jam => ({ type: LOAD_JAM, jam })
-export const loadUserJammer = jams => ({ type: LOAD_USER_JAMMER, jams })
+export const loadUserJammer = jammer => ({ type: LOAD_USER_JAMMER, jammer })
 export const loadUserJams = jams => ({ type: LOAD_USER_JAMS, jams })
+// export const getUserJam = jam => ({ type: LOAD_USER_JAMS, jams })
+export const setUserJam = jam => ({ type: LOAD_USER_JAM, jam })
 
 // export const userGoesToJam = (id, jamId) => async (dispatch) => {
 //   const response = await fetch(`${baseUrl}/users/${id}/jammer/${jamId}`, {
@@ -22,24 +25,55 @@ export const loadUserJams = jams => ({ type: LOAD_USER_JAMS, jams })
 //   if (response.ok) console.log('user is attending new jam')
 // }
 
+export const createJam = payload => async dispatch => {
+  console.log(payload)
+
+  const response = await fetch(`${baseUrl}/jams`, {
+    method: 'post',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  })
+  if (response.ok) console.log('user is attending new jam')
+}
+
+
+export const editJam = ( jamId, payload ) => async dispatch => {
+  console.log(payload)
+  const { id } = jamId
+  const response = await fetch(`${baseUrl}/jams/${jamId}`, {
+    method: 'patch',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  })
+  if (response.ok) console.log('jam updated')
+}
+
+
 export const getUserJammer = (id) => async (dispatch) => {
   const response = await fetch(`${baseUrl}/users/${id}/jammer`)
   if (response.ok) {
-    console.log('response')
-    const jams = await response.json()
-    dispatch(loadUserJammer(jams))
+    // console.log('response')
+    const jammer = await response.json()
+    dispatch(loadUserJammer(jammer))
     // console.log('response', jams)
   }
 }
 export const getUserJams = (id) => async (dispatch) => {
   const response = await fetch(`${baseUrl}/users/${id}/jams`)
   if (response.ok) {
-    console.log('response')
     const jams = await response.json()
     dispatch(loadUserJams(jams))
-    // console.log('response', jams)
   }
 }
+
+export const getUserJam = (jamId) => async (dispatch) => {
+  const response = await fetch(`${baseUrl}/jams/${jamId}`);
+  if (response.ok) {
+    const jam = await response.json();
+    // console.log(jam)
+    dispatch(setUserJam(jam))
+  }
+};
 
 export const getCities = () => async (dispatch) => {
   const response = await fetch(`${baseUrl}/jams/cities`)
@@ -106,13 +140,19 @@ export default function reducer(state = {}, action) {
     case LOAD_USER_JAMMER: {
       return {
         ...state,
-        userJammer: action.jams
+        userJammer: action.jammer
       }
     }
     case LOAD_USER_JAMS: {
       return {
         ...state,
-        userJammer: action.jams
+        userJams: action.jams
+      }
+    }
+    case LOAD_USER_JAM: {
+      return {
+        ...state,
+        userJam: action.jam
       }
     }
     default: return state;

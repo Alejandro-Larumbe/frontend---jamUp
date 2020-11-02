@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState, useEffect, useSelector} from 'react';
+import {  useDispatch } from 'react-redux';
 import { useParams, Redirect, useHistory } from 'react-router-dom';
 import USER_ID_KEY from '../store/authentication'
 import { createJam } from '../store/jams'
+import { getUserJam, editJam } from '../store/jams'
 
 
 import { timeParser, dateParser } from './utils'
@@ -86,16 +87,30 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function CreateJam() {
+export default function EditJam() {
+
   const classes = useStyles();
-  const hostId = useSelector(state => state.authentication.id)
-  // const [time, setTime] = useState('')
-  // const [date, setDate] = useState('')
-  const [cityId, setCityId] = useState('')
-  const [address, setAddress] = useState('')
-  const [description, setDescription] = useState('')
-  const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
+  const hostId = useSelector(state => state.authentication.id) ||
+  window.localStorage.getItem('USER_ID_KEY')
+  // console.log('jaminfo', jamInfo)
+  const jamId = 16
+
+  const jamInfo = useSelector(state => state.jams.userJam.jam)
+  const [cityId, setCityId] = useState(jamInfo.cityId)
+  const [address, setAddress] = useState(jamInfo.address)
+  const [description, setDescription] = useState(jamInfo.description)
+  const [selectedDate, setSelectedDate] = useState(new Date());
   const dispatch = useDispatch();
+
+
+  useEffect(() => {
+    dispatch(getUserJam(jamId))
+  }, [])
+
+  if (!jamInfo) return null;
+
+  // console.log('jaminfo', jamInfo)
+
 
   const updateProperty = (callback) => (e) => {
     callback(e.target.value)
@@ -121,8 +136,10 @@ export default function CreateJam() {
       address,
       description
     }
-    dispatch(createJam(payload))
+    dispatch(editJam(jamId, payload))
   }
+
+
 
   return (
 
@@ -210,7 +227,7 @@ export default function CreateJam() {
           color="primary"
           className={classes.submit}
         >
-          Create Jam
+          Edit Jam
             </Button>
         <Grid container>
           {/* <Grid item>

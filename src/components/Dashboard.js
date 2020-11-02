@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
+import EditJam from './EditJam'
 
 import NavBar from './NavBar'
 import EditUser from './EditUser'
@@ -65,10 +66,10 @@ const Dashboard = (props) => {
   const user = useSelector((state) => state.authentication.user);
   const dispatch = useDispatch();
   const id = parseInt(props.match.params.id) || window.localStorage.getItem(USER_ID_KEY)
-  console.log(id)
 
 
   useEffect(() => {
+    console.log("id from dispatch", id)
     dispatch(getUserJammer(id))
     dispatch(getUserJams(id))
     dispatch(getUser(parseInt(id)));
@@ -88,7 +89,8 @@ const Dashboard = (props) => {
       <ButtonAppBar />
       <p>Coming soon</p>
       {/* <CreateJam /> */}
-      <EditUser user={user} />
+      <EditJam />
+      {/* <EditUser user={user} /> */}
     </>
   )
 }
