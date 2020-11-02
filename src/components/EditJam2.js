@@ -118,17 +118,10 @@ export default function EditJam() {
   const handleDateChange = (date) => {
     setSelectedDate(date);
   };
-  // const handleTimeChange = (time) => {
-  //   setTime(time);
-  // };
 
   const handleSubmit = (e) => {
-    // const date = dateParser(selectedDate)
-    // const time = timeParser(selectedDate)
-
     e.preventDefault();
-    // const date = dateParser(selectedDate)
-    // const time = timeParser(selec)
+
     const payload = {
       selectedDate,
       hostId,
