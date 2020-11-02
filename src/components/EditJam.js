@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserJam } from '../store/jams'
 
+import { editJam } from '../store/jams'
 
 import { timeParser, dateParser } from './utils'
 
@@ -94,8 +95,16 @@ function EditJam(){
     cityId: oldCityId,
     address: oldAddress,
     description:oldDescription,
-    selectedDate:oldSelectedDate
+    // selectedDate:oldSelectedDate
   } = jamInfo
+
+
+  const [cityId, setCityId] = useState(oldCityId)
+  const [address, setAddress] = useState(oldAddress)
+  const [description, setDescription] = useState(oldDescription)
+  const [selectedDate, setSelectedDate] = useState(new Date());
+
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -105,13 +114,126 @@ function EditJam(){
   if (!jamInfo) return null
   console.log("jaminfo", jamInfo)
 
+  const updateProperty = (callback) => (e) => {
+    callback(e.target.value)
+  }
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const payload = {
+      selectedDate,
+      hostId,
+      cityId,
+      address,
+      description
+    }
+    dispatch(editJam(jamId, payload))
+  }
 
 
 
+  return (
 
-  return <p>jam will go here</p>
+    <Card className={classes.root, 'modal'}>
+      {/* <CardHeader classname={'card-header'} /> */}
 
-
+      <form className={classes.form} noValidate
+        onSubmit={handleSubmit}>
+        <TextField
+          variant="outlined"
+          margin="normal"
+          required
+          fullWidth
+          id="address"
+          label="Address"
+          name="address"
+          autoComplete="address"
+          autoFocus
+          value={address}
+          onChange={updateProperty(setAddress)}
+        />
+        <TextField
+          variant="outlined"
+          margin="normal"
+          required
+          fullWidth
+          id="description"
+          label="Description"
+          name="description"
+          autoComplete="description"
+          autoFocusdescription
+          value={description}
+          onChange={updateProperty(setDescription)}
+        />
+        <InputLabel id="city">City</InputLabel>
+        <Select
+          labelId="city"
+          fullWidth
+          value={cityId}
+          onChange={updateProperty(setCityId)}
+        >
+          <MenuItem value={1}>Mexico City</MenuItem>
+          <MenuItem value={2}>Auckland</MenuItem>
+          <MenuItem value={3}>Kyoto</MenuItem>
+          <MenuItem value={4}>Miami</MenuItem>
+          <MenuItem value={5}>New Orleans</MenuItem>
+          <MenuItem value={6}>Siena</MenuItem>
+        </Select>
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <Grid container justify="space-around">
+            <KeyboardDatePicker
+              disableToolbar
+              margin="normal"
+              id="date-picker"
+              label="Date picker"
+              format="MM/dd/yyyy"
+              value={selectedDate}
+              onChange={handleDateChange}
+              KeyboardButtonProps={{
+                'aria-label': 'change date',
+              }}
+            />
+            <KeyboardTimePicker
+              margin="normal"
+              id="time-picker"
+              label="Time Picker"
+              // type="time"
+              // defaultValue="07:30"
+              // className={classes.textField}
+              // InputLabelProps={{
+              //   shrink: true,
+              // }}
+              // inputProps={{
+              //   step: 300, // 5 min
+              // }}
+              value={selectedDate}
+              onChange={handleDateChange}
+            />
+          </Grid>
+        </MuiPickersUtilsProvider>
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          color="primary"
+          className={classes.submit}
+        >
+          Edit Jam
+            </Button>
+        <Grid container>
+          {/* <Grid item>
+          <Link href="/signin" variant="body2">
+            {"Already have an account? Log In"}
+          </Link>
+        </Grid> */}
+        </Grid>
+      </form>
+    </Card>
+  )
 
 }
 
