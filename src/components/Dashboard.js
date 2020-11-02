@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Route } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
-import EditJam from './EditJam'
+import { useHistory } from 'react-router-dom';
+import EditJam from './EditJam3'
 
 import NavBar from './NavBar'
 import EditUser from './EditUser'
@@ -22,6 +23,8 @@ import { yellow } from '@material-ui/core/colors';
 
 import CreateJam from './CreateJam';
 import { EditAttributesRounded } from '@material-ui/icons';
+
+import { getUserJam } from '../store/jams'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -66,7 +69,8 @@ const Dashboard = (props) => {
   const user = useSelector((state) => state.authentication.user);
   const dispatch = useDispatch();
   const id = parseInt(props.match.params.id) || window.localStorage.getItem(USER_ID_KEY)
-
+  const jamId = 16
+  const history = useHistory()
 
   useEffect(() => {
     console.log("id from dispatch", id)
@@ -79,6 +83,14 @@ const Dashboard = (props) => {
   if (!user) {
     return null;
   }
+
+  // const editJamSelector = async(e) => {
+  //   e.preventDefault(e);
+  //   dispatch(getUserJam(jamId))
+  //   history.push(`dashboard/editJam`)
+
+  // }
+
   // if (!token) {
   //   return <Redirect to="/login" />
   // }

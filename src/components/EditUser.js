@@ -113,7 +113,7 @@ export default function EditUser(user) {
   // console.log('user', user)
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(e);
     const payload = {
       username,
       firstName,
