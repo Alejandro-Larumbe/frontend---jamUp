@@ -91,6 +91,7 @@ const Dashboard = (props) => {
     return null;
   }
 
+
   let display = 'jams'
 
   // const editJamSelector = async(e) => {
@@ -127,7 +128,7 @@ const Dashboard = (props) => {
         </div>
         <div className='right-div-container'>
           <div className={classes.root}>
-              {userJammer.map(jam => (
+              {userJammerga.map(jam => (
 
                   <>
                   <DashBoardJamCard user={user} jam={jam} />
