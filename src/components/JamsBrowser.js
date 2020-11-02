@@ -32,6 +32,8 @@ const JamsBrowser = () => {
     <Redirect to='login'></Redirect>
   }
 
+
+
   return (
     <div>
       <Navbar></Navbar>

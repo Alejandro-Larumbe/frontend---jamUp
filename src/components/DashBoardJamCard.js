@@ -1,4 +1,4 @@
-import React, { useEffect }from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, Redirect, useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
@@ -68,41 +68,29 @@ const useStyles = makeStyles((theme) => ({
 // }
 
 
-export default function JamCard(props) {
+export default function DashBoardJamCard(props) {
+  const {user,  jam }= props
+
+  console.log(user, props)
+
   const classes = useStyles();
-  const { id, cityId, jamId } = props.match.params
-  const jams = useSelector(state => state.jams.jams)
-  const isAttending = useSelector(state => state.jams.isAttending)
+  const { time, date, address, description, hostId, cityId } = jam
   const userId = window.localStorage.getItem('USER_ID_KEY')
   const dispatch = useDispatch()
   const history = useHistory()
 
-  useEffect(() => {
-    console.log('dispatch')
-    dispatch(attending(userId, jamId));
-  }, [jams]);
+  // useEffect(() => {
+  //   console.log('dispatch')
+  //   dispatch(attending(userId, jamId));
+  // }, [jams]);
 
-  if (!isAttending) return null
-
-
-  if (!jams) return null
+  // if (!isAttending) return null
   let isHost = false
-  let jam = {}
-  jams.forEach((cur) => {
-    if (parseInt(cur.id )=== parseInt(jamId)) {
-      jam = cur
-    }
-    // if (parseInt(cur.hostId) === parseInt(userId)) {
-    //   console.log("curID", cur.hostId, "userId", userId)
-    //   isHost = true}
-  })
-  if (!jam) return null
-  console.log(isHost, 'isHost')
-
   if (parseInt(jam.hostId) === parseInt(userId)) isHost = true
 
-  let someoneIsAttending = !!jam.attending.length
-  let userAttending = (isAttending.count>0)
+  let isAttending = true
+
+  // let someoneIsAttending = !!jam.attending.length
 
 
   let closeHandler = () => {
@@ -138,26 +126,24 @@ export default function JamCard(props) {
 
   return (
     <>
-      <Card className={classes.root, 'modal'}>
+      <Card className={classes.root, 'notmodal'}>
         <CardHeader classname={'card-header'}
-          avatar={
-            <Avatar aria-label="recipe" src={jam.host.photoUrl} className={classes.avatar} />
-          }
+
           title={
             <>
-            {isHost?
-              <Typography variant="h6" component="h4">
-                You are hosting!
+              {isHost ?
+                <Typography variant="h6" component="h4">
+                  You are hosting!
               </Typography>
-              :<Typography variant="h6" component="h4">
-                Jam with with {jam.host.firstName}
-              </Typography>
-          }
+                : <Typography variant="h6" component="h4">
+                  Jam with with {user.user.firstName}
+                </Typography>
+              }
               <Typography variant="h7" component="h4">
-                {jam.host.username}
+                {user.user.username}
               </Typography>
               <Typography variant="h7" component="h4">
-                {jam.host.instrument}
+                {user.user.instrument}
               </Typography>
             </>
           }
@@ -185,9 +171,7 @@ export default function JamCard(props) {
             {'attending:'}
           </Typography>
           <List className={classes.root}>
-            {!someoneIsAttending ?
-              <Typography h4>No one is going... yet</Typography>
-              : jam.attending.map(cur => {
+            {jam.attending.map(cur => {
                 return (
                   <>
                     <ListItem>
@@ -203,9 +187,9 @@ export default function JamCard(props) {
           </List>
         </CardContent>
         <CardActions>
-          { isHost ? <Button onClick={cancelJamHandler} size="small">Cancel Jam</Button>
-          : userAttending ? <Button onClick={notGoingHandler} size="small">Can't go anymore</Button>
-            : <Button onClick={goingHandler} size="small">Let's Jam!</Button>
+          {isHost ? <Button onClick={cancelJamHandler} size="small">Cancel Jam</Button>
+            :  <Button onClick={notGoingHandler} size="small">Can't go anymore</Button>
+              // : <Button onClick={goingHandler} size="small">Let's Jam!</Button>
           }
           <Button onClick={closeHandler} size="small">Close!</Button>
         </CardActions>

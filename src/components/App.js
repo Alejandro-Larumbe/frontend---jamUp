@@ -11,6 +11,8 @@ import Landing from './Landing';
 import SigninSide from './SigninSide'
 import NavBar from './NavBar'
 import Dashboard from './Dashboard'
+import CreateJam from './CreateJam'
+import EditUser from './EditUser'
 
 
 
@@ -35,11 +37,13 @@ function App() {
     <BrowserRouter>
       <Switch>
         <Route path='/signup' component={SignUp} />
-        <Route path='/user/:id/dashboard' component={Dashboard} />
+        <Route exact path='/user/editUser' component={EditUser} />
+        <Route exact path='/dashboard' component={Dashboard} />
         <Route path='/signin' component={SigninSide} />
         <Route path='/login' component={Login} />
         <Route path='/jamsBrowser'component={JamsBrowser} />
-        <Route path='/' component={Landing} />
+        <Route exact path='/createJam' component={CreateJam} />
+        <Route exact path='/' component={Landing} />
       </Switch>
         {/* <Route path='/' component={NavBar} /> */}
     </BrowserRouter>

@@ -1,4 +1,3 @@
-import { AccessTimeOutlined } from '@material-ui/icons';
 import { baseUrl } from '../config';
 
 
@@ -12,7 +11,7 @@ const IS_ATTENDING = 'IS_ATTENDING'
 const CLEAR_ATTENDING = 'CLEAR_ATTENDING'
 
 
-export const clearAttending = () => ({ type: CLEAR_ATTENDING})
+export const clearAttending = () => ({ type: CLEAR_ATTENDING })
 export const load = cities => ({ type: LOAD, cities });
 export const loadCurrentCityJams = jams => ({ type: LOAD_CURRENT_CITY_JAMS, jams })
 export const loadJam = jam => ({ type: LOAD_JAM, jam })
@@ -42,7 +41,7 @@ export const createJam = payload => async dispatch => {
 }
 
 
-export const editJam = ( jamId, payload ) => async dispatch => {
+export const editJam = (jamId, payload) => async dispatch => {
   console.log(payload)
   const { id } = jamId
   const response = await fetch(`${baseUrl}/jams/${jamId}`, {
@@ -89,16 +88,17 @@ export const getCities = () => async (dispatch) => {
 }
 
 export const going = (userId, jamId) => async dispatch => {
-  if (!attending) {
     const response = await fetch(`${baseUrl}/users/${userId}/jammer/${jamId}`, {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
     });
     if (response.ok) console.log('user cancelled jam successfully')
-}
+  }
+
 
 
 export const setCurrentCity = (id) => async (dispatch) => {
+  console.log('trigger')
   const response = await fetch(`${baseUrl}/jams/cities/${id}`)
   if (response.ok) {
     const jams = await response.json();
@@ -111,8 +111,10 @@ export const setJam = (id) => async (dispatch) => {
   if (response.ok) {
     const jam = await response.json();
     dispatch(loadJam(jam))
+
   }
 }
+
 export const attending = (id, jamId) => async (dispatch) => {
   const response = await fetch(`${baseUrl}/users/${id}/jammer/${jamId}`)
   if (response.ok) {
@@ -123,6 +125,13 @@ export const attending = (id, jamId) => async (dispatch) => {
 
 export const notGoing = (userId, jamId) => async dispatch => {
   const response = await fetch(`${baseUrl}/users/${userId}/jammer/${jamId}`, {
+    method: 'delete',
+    headers: { 'Content-Type': 'application/json' },
+  });
+  if (response.ok) console.log('user cancelled jam successfully')
+}
+export const cancelJam = (jamId) => async dispatch => {
+  const response = await fetch(`${baseUrl}/jams/${jamId}`, {
     method: 'delete',
     headers: { 'Content-Type': 'application/json' },
   });
@@ -176,7 +185,7 @@ export default function reducer(state = {}, action) {
       }
     }
     case CLEAR_ATTENDING: {
-      const newState = {...state}
+      const newState = { ...state }
       delete newState.isAttending
       return newState
     }

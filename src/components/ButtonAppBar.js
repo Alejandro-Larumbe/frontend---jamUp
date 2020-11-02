@@ -7,7 +7,7 @@ import { useHistory } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 
 import NavBar from './NavBar'
-import EditUser from './EditUser'
+import EditUser from './EditUser2'
 
 import { getUserJammer, getUserJams } from '../store/jams'
 import {  getUser } from '../store/authentication'

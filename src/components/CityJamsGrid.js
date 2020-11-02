@@ -49,6 +49,8 @@ export default function CityJamsGrid() {
 
   if (!jams) return null
 
+
+
   return (
     // console.log(jams),
     <div className={classes.root}>

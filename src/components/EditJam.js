@@ -236,3 +236,4 @@ function EditJam(){
     </Card>
   )
 }
+export default EditJam

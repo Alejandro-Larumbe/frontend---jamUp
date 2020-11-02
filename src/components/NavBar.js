@@ -12,6 +12,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import { Link } from 'react-router-dom';
 import { logout } from '../store/authentication'
+import { Dashboard } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,13 +45,19 @@ export default function NavBar() {
       history.push(`/jamsBrowser/user/${id}`)
     }
   }
+  const createJamHandler = (e) => {
+      history.push('/createJam')
 
-  const dashboardHandler = () => {
-    if (!id) {
-      history.push('/signin')
-    } else {
-      history.push(`/user/${id}/dashboard`)
-    }
+  }
+  const dashboardHandler = (e) => {
+      history.push('/dashboard')
+
+  }
+
+  const editUserHandler = () => {
+
+      history.push(`/user/editUser`)
+
   }
   const jamUpHandler = () => {
     history.push('/')
@@ -69,8 +76,10 @@ export default function NavBar() {
             </Link> */}
             <Button color="inherit" onClick={jamUpHandler}>JamUp!</Button>
           </Typography>
-          <Button color="inherit" onClick={jamsHandler}>Jams</Button>
           <Button color="inherit" onClick={dashboardHandler}>Dashboard</Button>
+          <Button color="inherit" onClick={jamsHandler}>Jams</Button>
+          <Button color="inherit" onClick={createJamHandler}>Create Jam</Button>
+          <Button color="inherit" onClick={editUserHandler}>Edit User</Button>
           {token ?
             <Button color="inherit" onClick={logOutHandler}>Logout</Button>
             : <Link to='/signin'><Button color="inherit">Login</Button></Link>}
