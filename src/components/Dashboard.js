@@ -3,7 +3,6 @@ import { Redirect, Route } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import EditJam from './EditJam3'
 
 import NavBar from './NavBar'
 import EditUser from './EditUser'
