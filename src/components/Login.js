@@ -7,7 +7,7 @@ import { USER_ID_KEY } from '../store/authentication'
 
 const Login = props => {
   const { token } = useSelector(state => state.authentication);
-  const [email, setEmail] = useState('Burnice.Tremblay@hotmail.com');
+  const [email, setEmail] = useState('Demond.Auer@hotmail.com');
   const [password, setPassword] = useState('password');
   const dispatch = useDispatch();
   let history = useHistory();
