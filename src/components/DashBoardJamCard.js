@@ -25,6 +25,8 @@ import { formatTime } from './utils'
 import USER_ID_KEY from '../store/authentication'
 import { attending } from '../store/jams'
 import { clearAttending } from '../store/jams'
+import {dateParser, timeParser} from './utils'
+
 
 import '../index.css'
 // import reducer from '../store/jams';
@@ -131,16 +133,15 @@ export default function DashBoardJamCard(props) {
 
           title={
             <>
-              {isHost ?
-                <Typography variant="h6" component="h4">
-                  You are hosting!
-              </Typography>
-                : <Typography variant="h6" component="h4">
+             <Typography variant="h6" component="h4">
                   Jam with with {user.user.firstName}
                 </Typography>
-              }
+
               <Typography variant="h7" component="h4">
-                {user.user.username}
+              {jam.date}
+              </Typography>
+              <Typography variant="h7" component="h4">
+              {formatTime(jam.time)}
               </Typography>
               <Typography variant="h7" component="h4">
                 {user.user.instrument}
@@ -150,10 +151,9 @@ export default function DashBoardJamCard(props) {
         />
         <CardContent>
           <Typography variant="body2" color="textSecondary" component="p">
-            {jam.date}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            {formatTime(jam.time)}
+
           </Typography>
           <div style={{ height: "30px" }} />
           <Typography variant="body2" color="textSecondary" component="p">
@@ -191,7 +191,6 @@ export default function DashBoardJamCard(props) {
             :  <Button onClick={notGoingHandler} size="small">Can't go anymore</Button>
               // : <Button onClick={goingHandler} size="small">Let's Jam!</Button>
           }
-          <Button onClick={closeHandler} size="small">Close!</Button>
         </CardActions>
       </Card>
     </>

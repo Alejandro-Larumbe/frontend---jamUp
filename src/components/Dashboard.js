@@ -17,7 +17,7 @@ import { USER_ID_KEY } from '../store/authentication'
 import ButtonAppBar from './ButtonAppBar'
 import AppBar from '@material-ui/core/AppBar';
 
-
+import {dateParser, timeParser} from './utils'
 import CreateJam from './CreateJam';
 import { EditAttributesRounded } from '@material-ui/icons';
 
@@ -108,13 +108,11 @@ const Dashboard = (props) => {
     <>
       <NavBar></NavBar>
       <div id="browser-banner" width='50%'  style={{ backgroundImage: `url(${imageUrl}/browser.jpeg`, height: '18vh' }}>
-        <h1 className="browser-banner-h1">Edit User</h1>
+        <h1 className="browser-banner-h1">Dashboard</h1>
       </div>
       {/* <EditUser user={user}></EditUser> */}
       {/* <CreateJam></CreateJam> */}
       {/* <EditUser user={user}></EditUser> */}
-
-       <ButtonAppBar />
       <div className='dashboard-container'>
         <div className='left-container'>
           <div className='left-div-container'>

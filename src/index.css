@@ -97,6 +97,10 @@
   }
 
   .dashboard-container {
+    margin:auto;
+    display: flex;
+    width: 1000px;
+    justify-content: space-around;
     margin: 1px solid black;
   }
   .profile-pic {

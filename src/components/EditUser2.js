@@ -104,7 +104,9 @@ export default function EditUser(user) {
   const [email, updateEmail] = useState(previousEmail);
   // const [updatePassword, setUpdatePassword] = useState('');
   // const [updateConfirmPassword, setUpdateConfirmPassword] = useState('');
+  const history = useHistory();
   const dispatch = useDispatch();
+
 
 
 
@@ -124,6 +126,7 @@ export default function EditUser(user) {
     }
     console.log(payload)
     dispatch(updateUserInfo(payload, parseInt(id)))
+    history.push('/dashboard')
   }
 
   const updateProperty = (callback) => (e) => {
