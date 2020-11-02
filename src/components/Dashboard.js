@@ -3,7 +3,7 @@ import { Redirect, Route } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import EditJam from './EditJam'
+import EditJam from './EditJam3'
 
 import NavBar from './NavBar'
 import EditUser from './EditUser'
@@ -84,12 +84,12 @@ const Dashboard = (props) => {
     return null;
   }
 
-  const editJamSelector = async(e) => {
-    e.preventDefault(e);
-    dispatch(getUserJam(jamId))
-    history.push(`dashboard/editJam`)
+  // const editJamSelector = async(e) => {
+  //   e.preventDefault(e);
+  //   dispatch(getUserJam(jamId))
+  //   history.push(`dashboard/editJam`)
 
-  }
+  // }
 
   // if (!token) {
   //   return <Redirect to="/login" />
@@ -101,10 +101,10 @@ const Dashboard = (props) => {
       <ButtonAppBar />
       <p>Coming soon</p>
       {/* <CreateJam /> */}
-      {/* <EditJam /> */}
+      <EditJam />
       {/* <EditUser user={user} /> */}
-      {<button onClick={editJamSelector}></button>}
-      <Route exact to='user/:id/dashboard/editJam' component={EditJam}/>
+      {/* {<button onClick={editJamSelector}></button>}
+      <Route exact to='user/:id/dashboard/editJam' component={EditJam}/> */}
     </>
   )
 }
