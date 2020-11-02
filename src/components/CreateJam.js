@@ -5,6 +5,8 @@ import USER_ID_KEY from '../store/authentication'
 import { createJam } from '../store/jams'
 import {imageUrl} from '../config'
 
+import {getUserJams} from '../store/jams'
+
 import { timeParser, dateParser } from './utils'
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -91,11 +93,13 @@ export default function CreateJam() {
   const hostId = useSelector(state => state.authentication.id)
   // const [time, setTime] = useState('')
   // const [date, setDate] = useState('')
+  const id = window.localStorage.getItem('USER_ID_KEY')
   const [cityId, setCityId] = useState('')
   const [address, setAddress] = useState('')
   const [description, setDescription] = useState('')
   const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const updateProperty = (callback) => (e) => {
     callback(e.target.value)
@@ -121,7 +125,10 @@ export default function CreateJam() {
       address,
       description
     }
+    console.log(payload)
     dispatch(createJam(payload))
+    dispatch(getUserJams(id))
+    history.push('/dashboard')
   }
 
   return (
