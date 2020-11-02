@@ -74,7 +74,7 @@ export default function NavBar() {
               JamUp
 
             </Link> */}
-            <Button color="inherit" onClick={jamUpHandler}>JamUp!</Button>
+            <Button color="inherit" className='jamup' onClick={jamUpHandler}>JamUp!</Button>
           </Typography>
           <Button color="inherit" onClick={dashboardHandler}>Dashboard</Button>
           <Button color="inherit" onClick={jamsHandler}>Jams</Button>

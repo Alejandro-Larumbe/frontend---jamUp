@@ -68,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Dashboard = (props) => {
 
-  const userJams = useSelector((state) => state.jams.userJams);
+  // const userJams = useSelector((state) => state.jams.userJams).jams;
   const userJammer = useSelector((state) => state.jams.userJammer);
   const { token } = useSelector((state) => state.authentication);
   const user = useSelector((state) => state.authentication.user);
@@ -90,7 +90,8 @@ const Dashboard = (props) => {
   if (!user) {
     return null;
   }
-
+  // console.log(userJams)
+  // if (!userJams) return null
 
   let display = 'jams'
 
@@ -128,7 +129,7 @@ const Dashboard = (props) => {
         </div>
         <div className='right-div-container'>
           <div className={classes.root}>
-              {userJammerga.map(jam => (
+              {userJammer.map(jam => (
 
                   <>
                   <DashBoardJamCard user={user} jam={jam} />
