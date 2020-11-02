@@ -17,13 +17,16 @@ import { red } from '@material-ui/core/colors';
 import { setJam } from '../store/jams'
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { formatTime } from './utils';
+import { Autorenew } from '@material-ui/icons';
 
 
 
 const useStyles = makeStyles((theme) => ({
   root: {
     width: 300,
-    height: 400,
+    height: 300,
+    boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+    overflow: 'auto'
   },
   media: {
     height: 0,

@@ -15,10 +15,11 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     flexWrap: 'wrap',
-    justifyContent: 'center',
-    overflow: 'auto',
+    justifyContent: 'space-around',
+    overflow: 'hidden',
     backgroundColor: theme.palette.background.paper,
-    // maxWidth: 800,
+    // width: '800px',
+    // width: '800px'
   },
   gridList: {
     flexWrap: 'nowrap',

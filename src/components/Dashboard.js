@@ -4,14 +4,16 @@ import { Redirect, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
+import { makeStyles } from '@material-ui/core/styles';
+import Avatar from '@material-ui/core/Avatar';
+
 import NavBar from './NavBar'
 import EditUser from './EditUser'
 
 import { getUserJammer, getUserJams } from '../store/jams'
-import {  getUser } from '../store/authentication'
+import { getUser } from '../store/authentication'
 import { USER_ID_KEY } from '../store/authentication'
-
-import { makeStyles } from '@material-ui/core/styles';
+import ButtonAppBar from './ButtonAppBar'
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -25,39 +27,6 @@ import { EditAttributesRounded } from '@material-ui/icons';
 
 import { getUserJam } from '../store/jams'
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-  },
-}));
-
-function ButtonAppBar() {
-  const classes = useStyles();
-
-  return (
-    <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar >
-          {/* <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            <MenuIcon />
-          </IconButton> */}
-          {/* <Typography variant="h6" className={classes.title}>
-            News
-          </Typography> */}
-          <Button color="inherit">Quick Look</Button>
-          <Button color="inherit">History</Button>
-          <Button color="inherit">Account</Button>
-        </Toolbar>
-      </AppBar>
-    </div>
-  );
-}
 
 
 const Dashboard = (props) => {
@@ -67,7 +36,7 @@ const Dashboard = (props) => {
   const { token } = useSelector((state) => state.authentication);
   const user = useSelector((state) => state.authentication.user);
   const dispatch = useDispatch();
-  const id = parseInt(props.match.params.id) || window.localStorage.getItem(USER_ID_KEY)
+  const id = window.localStorage.getItem(USER_ID_KEY)
   const jamId = 16
   const history = useHistory()
 
@@ -82,6 +51,8 @@ const Dashboard = (props) => {
   if (!user) {
     return null;
   }
+
+  let display = 'jams'
 
   // const editJamSelector = async(e) => {
   //   e.preventDefault(e);
@@ -98,11 +69,47 @@ const Dashboard = (props) => {
     <>
       <NavBar></NavBar>
       <ButtonAppBar />
-      <p>Coming soon</p>
-      {/* <CreateJam /> */}
-      {/* <EditJam /> */}
-      <EditUser user={user} />
+      <div className='dashboard-container'>
+        <div className='left-container'>
+          <div className='left-div-container'>
+            <div className='user-name-div'>
+              <h1>Welcome</h1>
+              <h1>{user.user.firstName}</h1>
+            </div>
+            <div className='profile-pic-div'>
+            <img className='profile-pic' src={user.user.photoUrl}></img>
+            </div>
+          </div>
+        </div>
+        <div className='right-div-container'>
+
+
+        </div>
+      </div>
+
     </>
+
+
+
+    //         {/* <p>Welcome</p>
+    //       </>
+    //       <>
+    //         <p>{user.user.firstName}</p>
+    //       </>
+    //     </div>
+    //     {/* <div className='profile-pic-container'> */}
+    //     <div className='profile-pic' backgroundimage={user.user.photoUrl} >
+    //       {/* <img className='profile-pic' src={user.user.photoUrl}></img> */}
+    //     </div>
+    //   </div>
+    //   {/* </div> */}
+    //   <div className='jams-container'></div>
+    // </div> */}
+
+    // {/* <p>Coming soon</p> */}
+    // {/* <CreateJam /> */}
+    // {/* <EditJam /> */}
+    // {/* <EditUser user={user} /> */}
   )
 }
 
