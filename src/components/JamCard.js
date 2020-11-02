@@ -1,4 +1,4 @@
-import React from 'react';
+import React { useEffect }from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, Redirect, useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
@@ -70,19 +70,24 @@ export default function JamCard(props) {
   const classes = useStyles();
   const { id, cityId, jamId } = props.match.params
   const jams = useSelector(state => state.jams.jams)
-  const userId = useSelector(state => state.authentication.id)
+  const isAttending = useSelector(state => state.jams.isAttending)
+  const userId = window.localStorage.getItem('USER_ID_KEY')
   const dispatch = useDispatch()
   const history = useHistory()
 
+  useEffect(() => {
+    dispatch(attending(userId, jamId));
+  }, []);
+
+
+
+
   console.log(jams)
-  console.log('userId', userId)
   if (!jams) return null
 
   let jam = {}
   jams.forEach((cur) => {
-    console.log(cur.id, jamId)
-    console.log(cur.id === parseInt(jamId))
-    if (cur.id === parseInt(jamId)) {
+    if (parseInt(cur.id )=== parseInt(jamId)) {
       jam = cur
     }
   })
@@ -91,33 +96,36 @@ export default function JamCard(props) {
   let someoneIsAttending = !!jam.attending.length
   let userIsAttending = false
 
-  userIsAttending = jam.attending.forEach(cur => {
-    if (cur.id === parseInt(userId)) return true
-  })
 
   if (someoneIsAttending) {
     jam.attending.forEach(curr => {
       if (parseInt(curr.id) === parseInt(userId))
-      userIsAttending = true
+        userIsAttending = true
     })
   }
+  // userIsAttending = jam.attending.forEach(cur => {
+  //   if (cur.id === parseInt(userId)) return true
+  // })
 
   console.log('someoneis', someoneIsAttending)
   console.log('userisatt', userIsAttending)
 
   // console.log(id)
-  console.log('attending', jam.attending)
+  // console.log('attending', jam.attending)
 
   let closeHandler = () => {
     console.log('hello')
     history.push(`/jamsBrowser/user/${userId}/city/${cityId}`)
   }
   let goingHandler = e => {
-    dispatch(going(userId, jam.id))
+    console.log(
+      'userid', parseInt(userId), 'jamid', jam.id, 'attedngin', userIsAttending
+    )
+    dispatch(going(userId, jam.id, userIsAttending))
   }
 
   let notGoingHandler = e => {
-    dispatch(notGoing(userId, jam.id))
+    // dispatch(notGoing(userId, jam.id))
 
   }
 
@@ -170,7 +178,7 @@ export default function JamCard(props) {
             {'attending:'}
           </Typography>
           <List className={classes.root}>
-            {!someoneIsAttending?
+            {!someoneIsAttending ?
               <Typography h4>be the first one to attend!</Typography>
               : jam.attending.map(cur => {
                 return (
@@ -188,10 +196,10 @@ export default function JamCard(props) {
           </List>
         </CardContent>
         <CardActions>
-          {userIsAttending?<Button onClick={notGoingHandler} size="small">Can't go anymore</Button>
-          :<Button onClick={goingHandler} size="small">Im going!</Button>
-        }
-        <Button onClick={closeHandler} size="small">Close!</Button>
+          {userIsAttending ? <Button onClick={goingHandler} size="small">Can't go anymore</Button>
+            : <Button onClick={goingHandler} size="small">Im going!</Button>
+          }
+          <Button onClick={closeHandler} size="small">Close!</Button>
         </CardActions>
       </Card>
     </>

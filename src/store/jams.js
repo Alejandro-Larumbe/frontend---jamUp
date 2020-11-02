@@ -83,12 +83,20 @@ export const getCities = () => async (dispatch) => {
   }
 }
 
-export const going = (userId, jamId) => async dispatch => {
-  const response = await fetch(`${baseUrl}/users/${userId}/jammer/${jamId}`, {
-    method: 'post',
-    headers: { 'Content-Type': 'application/json' },
-  });
-  if (response.ok) console.log('user cancelled jam successfully')
+export const going = (userId, jamId, attending) => async dispatch => {
+  if (!attending) {
+    const response = await fetch(`${baseUrl}/users/${userId}/jammer/${jamId}`, {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+    });
+    if (response.ok) console.log('user cancelled jam successfully')
+  } else {
+    const response = await fetch(`${baseUrl}/users/${userId}/jammer/${jamId}`, {
+      method: 'delete',
+      headers: { 'Content-Type': 'application/json' },
+    });
+    if (response.ok) console.log('user cancelled jam successfully')
+  }
 }
 
 export const setCurrentCity = (id) => async (dispatch) => {
@@ -106,14 +114,21 @@ export const setJam = (id) => async (dispatch) => {
     dispatch(loadJam(jam))
   }
 }
-
-export const notGoing = (userId, jamId) => async dispatch => {
-  const response = await fetch(`${baseUrl}/users/${userId}/jammer/${jamId}`, {
-    method: 'delete',
-    headers: { 'Content-Type': 'application/json' },
-  });
-  if (response.ok) console.log('user cancelled jam successfully')
+export const attending = (id, jamId) => async (dispatch) => {
+  const response = await fetch(`${baseUrl}/jammer/${id}`)
+  if (response.ok) {
+    const jam = await response.json();
+    dispatch(loadJam(jam))
+  }
 }
+
+// export const notGoing = (userId, jamId) => async dispatch => {
+//   const response = await fetch(`${baseUrl}/users/${userId}/jammer/${jamId}`, {
+//     method: 'delete',
+//     headers: { 'Content-Type': 'application/json' },
+//   });
+//   if (response.ok) console.log('user cancelled jam successfully')
+// }
 
 
 
