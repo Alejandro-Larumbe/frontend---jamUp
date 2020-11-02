@@ -8,7 +8,11 @@ const LOAD_JAM = 'LOAD_JAM'
 const LOAD_USER_JAMMER = "LOAD_USER_JAMMER"
 const LOAD_USER_JAMS = "LOAD_USER_JAMS"
 const LOAD_USER_JAM = "LOAD_USER_JAM"
+const IS_ATTENDING = 'IS_ATTENDING'
+const CLEAR_ATTENDING = 'CLEAR_ATTENDING'
 
+
+export const clearAttending = () => ({ type: CLEAR_ATTENDING})
 export const load = cities => ({ type: LOAD, cities });
 export const loadCurrentCityJams = jams => ({ type: LOAD_CURRENT_CITY_JAMS, jams })
 export const loadJam = jam => ({ type: LOAD_JAM, jam })
@@ -16,6 +20,7 @@ export const loadUserJammer = jammer => ({ type: LOAD_USER_JAMMER, jammer })
 export const loadUserJams = jams => ({ type: LOAD_USER_JAMS, jams })
 // export const getUserJam = jam => ({ type: LOAD_USER_JAMS, jams })
 export const setUserJam = jam => ({ type: LOAD_USER_JAM, jam })
+export const isAttending = jam => ({ type: IS_ATTENDING, jam })
 
 // export const userGoesToJam = (id, jamId) => async (dispatch) => {
 //   const response = await fetch(`${baseUrl}/users/${id}/jammer/${jamId}`, {
@@ -83,21 +88,15 @@ export const getCities = () => async (dispatch) => {
   }
 }
 
-export const going = (userId, jamId, attending) => async dispatch => {
+export const going = (userId, jamId) => async dispatch => {
   if (!attending) {
     const response = await fetch(`${baseUrl}/users/${userId}/jammer/${jamId}`, {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
     });
     if (response.ok) console.log('user cancelled jam successfully')
-  } else {
-    const response = await fetch(`${baseUrl}/users/${userId}/jammer/${jamId}`, {
-      method: 'delete',
-      headers: { 'Content-Type': 'application/json' },
-    });
-    if (response.ok) console.log('user cancelled jam successfully')
-  }
 }
+
 
 export const setCurrentCity = (id) => async (dispatch) => {
   const response = await fetch(`${baseUrl}/jams/cities/${id}`)
@@ -115,20 +114,20 @@ export const setJam = (id) => async (dispatch) => {
   }
 }
 export const attending = (id, jamId) => async (dispatch) => {
-  const response = await fetch(`${baseUrl}/jammer/${id}`)
+  const response = await fetch(`${baseUrl}/users/${id}/jammer/${jamId}`)
   if (response.ok) {
     const jam = await response.json();
-    dispatch(loadJam(jam))
+    dispatch(isAttending(jam))
   }
 }
 
-// export const notGoing = (userId, jamId) => async dispatch => {
-//   const response = await fetch(`${baseUrl}/users/${userId}/jammer/${jamId}`, {
-//     method: 'delete',
-//     headers: { 'Content-Type': 'application/json' },
-//   });
-//   if (response.ok) console.log('user cancelled jam successfully')
-// }
+export const notGoing = (userId, jamId) => async dispatch => {
+  const response = await fetch(`${baseUrl}/users/${userId}/jammer/${jamId}`, {
+    method: 'delete',
+    headers: { 'Content-Type': 'application/json' },
+  });
+  if (response.ok) console.log('user cancelled jam successfully')
+}
 
 
 
@@ -169,6 +168,17 @@ export default function reducer(state = {}, action) {
         ...state,
         userJam: action.jam
       }
+    }
+    case IS_ATTENDING: {
+      return {
+        ...state,
+        isAttending: action.jam
+      }
+    }
+    case CLEAR_ATTENDING: {
+      const newState = {...state}
+      delete newState.isAttending
+      return newState
     }
     default: return state;
   }

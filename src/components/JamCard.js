@@ -1,4 +1,4 @@
-import React { useEffect }from 'react';
+import React, { useEffect }from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, Redirect, useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
@@ -22,6 +22,8 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import CancelIcon from '@material-ui/icons/Cancel';
 import { formatTime } from './utils'
 import USER_ID_KEY from '../store/authentication'
+import { attending } from '../store/jams'
+import { clearAttending } from '../store/jams'
 
 import '../index.css'
 import { going, notGoing } from '../store/jams'
@@ -76,56 +78,44 @@ export default function JamCard(props) {
   const history = useHistory()
 
   useEffect(() => {
+    console.log('dispatch')
     dispatch(attending(userId, jamId));
   }, []);
 
+  if (!isAttending) return null
 
 
-
-  console.log(jams)
   if (!jams) return null
-
+  let isHost = false
   let jam = {}
   jams.forEach((cur) => {
     if (parseInt(cur.id )=== parseInt(jamId)) {
       jam = cur
     }
+    // if (parseInt(cur.hostId) === parseInt(userId)) {
+    //   console.log("curID", cur.hostId, "userId", userId)
+    //   isHost = true}
   })
   if (!jam) return null
+  console.log(isHost, 'isHost')
+
+  if (parseInt(jam.hostId) === parseInt(userId)) isHost = true
 
   let someoneIsAttending = !!jam.attending.length
-  let userIsAttending = false
+  let userAttending = (isAttending.count>0)
 
-
-  if (someoneIsAttending) {
-    jam.attending.forEach(curr => {
-      if (parseInt(curr.id) === parseInt(userId))
-        userIsAttending = true
-    })
-  }
-  // userIsAttending = jam.attending.forEach(cur => {
-  //   if (cur.id === parseInt(userId)) return true
-  // })
-
-  console.log('someoneis', someoneIsAttending)
-  console.log('userisatt', userIsAttending)
-
-  // console.log(id)
-  // console.log('attending', jam.attending)
 
   let closeHandler = () => {
-    console.log('hello')
+    dispatch(clearAttending())
     history.push(`/jamsBrowser/user/${userId}/city/${cityId}`)
   }
   let goingHandler = e => {
-    console.log(
-      'userid', parseInt(userId), 'jamid', jam.id, 'attedngin', userIsAttending
-    )
-    dispatch(going(userId, jam.id, userIsAttending))
+    dispatch(going(userId, jam.id, userAttending))
+    // dispatch(attending(userId, jamId));
   }
 
   let notGoingHandler = e => {
-    // dispatch(notGoing(userId, jam.id))
+    dispatch(notGoing(userId, jam.id))
 
   }
 
@@ -143,9 +133,14 @@ export default function JamCard(props) {
           }
           title={
             <>
+            {isHost?
               <Typography variant="h6" component="h4">
+                You are hosting!
+              </Typography>
+              :<Typography variant="h6" component="h4">
                 Jam with with {jam.host.firstName}
               </Typography>
+          }
               <Typography variant="h7" component="h4">
                 {jam.host.username}
               </Typography>
@@ -179,7 +174,7 @@ export default function JamCard(props) {
           </Typography>
           <List className={classes.root}>
             {!someoneIsAttending ?
-              <Typography h4>be the first one to attend!</Typography>
+              <Typography h4>No one is going... yet</Typography>
               : jam.attending.map(cur => {
                 return (
                   <>
@@ -196,8 +191,9 @@ export default function JamCard(props) {
           </List>
         </CardContent>
         <CardActions>
-          {userIsAttending ? <Button onClick={goingHandler} size="small">Can't go anymore</Button>
-            : <Button onClick={goingHandler} size="small">Im going!</Button>
+          { isHost ? <Button onClick={goingHandler} size="small">Cancel Jam</Button>
+          : userAttending ? <Button onClick={notGoingHandler} size="small">Can't go anymore</Button>
+            : <Button onClick={goingHandler} size="small">Let's Jam!</Button>
           }
           <Button onClick={closeHandler} size="small">Close!</Button>
         </CardActions>
