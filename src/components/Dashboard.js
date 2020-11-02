@@ -89,8 +89,8 @@ const Dashboard = (props) => {
       <ButtonAppBar />
       <p>Coming soon</p>
       {/* <CreateJam /> */}
-      <EditJam />
-      {/* <EditUser user={user} /> */}
+      {/* <EditJam /> */}
+      <EditUser user={user} />
     </>
   )
 }

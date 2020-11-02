@@ -22,8 +22,8 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
   },
   gridList: {
-    width: 750,
-    height: 450,
+    width: 1000,
+    height: '100%',
   },
   icon: {
     color: 'rgba(255, 255, 255, 0.54)',
@@ -66,22 +66,16 @@ export default function CitiesGrid(props) {
 
   return (
     <div className={classes.root}>
-      <GridList cellHeight={180} className={classes.gridList}>
-        <GridListTile key="Subheader" cols={3} style={{ height: 'auto' }}>
+      <GridList cols={3} cellHeight={180} className={classes.gridList}>
+        {/* <GridListTile key="Subheader" cols={2} style={{ height: 'auto' }}>
           <ListSubheader component="div">Cities</ListSubheader>
-        </GridListTile>
+        </GridListTile> */}
         {cities.map((city, i) => (
-          <GridListTile key={city.id}>
+          <GridListTile imgFullHeight key={city.id}>
             <NavLink key={city.id} to={`/jamsBrowser/user/${id}/city/${city.id}`}>
-              <img src={`${imageUrl}/${i}.jpeg`} alt={city.name} id={city.id} onClick={handleClick} />
+              <img width="100%" src={`${imageUrl}/${i}.jpeg`} alt={city.name} id={city.id} onClick={handleClick} />
               <GridListTileBar
                 title={city.name}
-              // subtitle={<span>by: {tile.author}</span>}
-              // actionIcon={
-              //   <IconButton aria-label={`info about ${tile.title}`} className={classes.icon}>
-              //     <InfoIcon />
-              //   </IconButton>
-              // }
               />
             </NavLink>
           </GridListTile>

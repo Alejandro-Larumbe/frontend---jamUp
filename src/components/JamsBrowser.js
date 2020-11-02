@@ -17,7 +17,7 @@ import 'fontsource-roboto';
 
 const JamsBrowser = () => {
   const cities = useSelector((state) => state.jams.cities);
-  const token = useSelector((state) => state.authentication.token);
+  const token =  window.localStorage.getItem('TOKEN_KEY');
   const current = useSelector((state) => state.jams.current)
   const dispatch = useDispatch();
 
@@ -33,19 +33,22 @@ const JamsBrowser = () => {
   }
 
   return (
-    <>
+    <div>
       <Navbar></Navbar>
-      <div id="browser-image" width='50%' style={{ backgroundImage: `url(${imageUrl}/browser.jpeg`, height: '35vh' }} />
-      <div style={{ height: "150px" }} />
+      <div id="browser-banner" width='50%' style={{ backgroundImage: `url(${imageUrl}/browser.jpeg`, height: '35vh' }}>
+      <h1 className="browser-banner-h1">Jamming with strangers is weird...</h1>
+      <h2 className="browser-banner-h2">(that's what boring people say)</h2>
+      </div>
+      <div className='choose-a-city-text' style={{ height: "30px" }}><p >choose a city (don't be shy!)</p></div>
       <Route path='/jamsBrowser/user/:id/city/:cityId/jamId/:jamId' component={JamCard}/>
       <Route path={`/jamsBrowser/user/:id`} component={CitiesGrid} />
-      <div style={{ height: "100px" }} />
+      <div className='choose-a-city-text' style={{ height: "30px" }}><p >check out these jams:</p></div>
       <Route path='/jamsBrowser/user/:id/city/:cityId' component={CityJamsGrid} />
       {/* </Route> */}
       {/* <CityJamsGrid /> */}
       <div style={{ height: "150px" }} />
       <div id="overlay"></div>
-    </>
+    </div>
   )
 }
 

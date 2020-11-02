@@ -19,8 +19,12 @@ const Landing = () => {
   return (
     <>
       <Navbar></Navbar>
-      <div id="landing-image" width='100%' style={{ backgroundImage: `url(${imageUrl}/home.jpeg`, height: '60vh' }} />
+      <div id="landing-banner" width='100%' style={{ backgroundImage: `url(${imageUrl}/home.jpeg`, height: '60vh' }} >
+        <h1 className="browser-banner-h1">There's cool people everywhere</h1>
+        <h2 className="browser-banner-h2">Jam with them!</h2>
+      </div>
     </>
+
   )
 }
 

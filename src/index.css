@@ -1,16 +1,45 @@
 /* TODO Add site wide styles */
 
-#landing-image {
+#landing-banner {
   background-size: cover;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
 }
-#browser-image {
+#browser-banner {
   background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* opacity: 0.7; */
+
   /* height: auto; */
 
   /* margin:auto; */
   /* height: auto; */
 }
+.browser-banner-h1{
+  font-family: 'Elsie Swash Caps', cursive;
+  font-size: 4.5em;
+  color: rgb(255,255,255, 1);
+  text-shadow: 4px 4px black;
+  margin-bottom: 10;
+
+}
+.browser-banner-h2{
+  bottom: 50px;
+  margin-top: 0;
+  font-family: 'Open Sans', sans-serif;
+  color: white;
+  font-size: 2.5em;
+  text-shadow: 4px 4px black;
+
+}
+
 
 .modal {
   position: fixed;
@@ -50,3 +79,14 @@
   float:'right';
   margin-top: '5px';
   width: '20px'}
+
+  .choose-a-city-text{
+    font-size: 2em;
+    margin: auto;
+    width: 50%;
+    padding: 100px;
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 2em;
+    text-shadow: 4px 4p red;
+  }

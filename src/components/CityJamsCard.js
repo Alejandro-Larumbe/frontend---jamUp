@@ -22,7 +22,8 @@ import { formatTime } from './utils';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 345,
+    width: 300,
+    height: 400,
   },
   media: {
     height: 0,

@@ -189,6 +189,7 @@ function SignUp() {
             <Select
               labelId="city"
               value={cityId}
+              fullWidth
               onChange={updateProperty(setCityId)}
             >
               <MenuItem value={1}>Mexico City</MenuItem>

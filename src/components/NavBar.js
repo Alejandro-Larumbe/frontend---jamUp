@@ -52,6 +52,10 @@ export default function NavBar() {
       history.push(`/user/${id}/dashboard`)
     }
   }
+  const jamUpHandler = () => {
+    history.push('/')
+  }
+
 
   return (
     <div className={classes.root}>
@@ -59,12 +63,13 @@ export default function NavBar() {
         <Toolbar>
 
           <Typography variant="h6" className={classes.title}>
-            <Link to='/'>
+            {/* <Link to='/'>
               JamUp
 
-            </Link>
+            </Link> */}
+            <Button color="inherit" onClick={jamUpHandler}>JamUp!</Button>
           </Typography>
-            <Button color="inherit" onClick={jamsHandler}>Jams</Button>
+          <Button color="inherit" onClick={jamsHandler}>Jams</Button>
           <Button color="inherit" onClick={dashboardHandler}>Dashboard</Button>
           {token ?
             <Button color="inherit" onClick={logOutHandler}>Logout</Button>
