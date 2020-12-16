@@ -172,19 +172,7 @@ function SignUp() {
               value={lastName}
               onChange={updateProperty(setLastName)}
             />
-            {/* <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="city"
-              label="city"
-              name="city"
-              autoComplete="city"
-              autoFocus
-              value={cityId}
-              onChange={updateProperty(setCityId)}
-            /> */}
+
             <InputLabel id="city">City</InputLabel>
             <Select
               labelId="city"
